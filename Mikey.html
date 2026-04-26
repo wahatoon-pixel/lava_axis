@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mikey the Cat | ميكي ذا كات</title>
+    <style>
+         :root {
+            --lava1: #ff6a00;
+            --lava2: #ff2d2d;
+            --lava3: #ffa400;
+            --bg1: #2a0f0b;
+            --bg2: #190a07;
+            --text: #fff7f0;
+            --muted: #ffd9c2;
+        }
+        
+        * {
+            box-sizing: border-box
+        }
+        
+        html,
+        body {
+            height: 100%
+        }
+        
+        body {
+            margin: 0;
+            color: var(--text);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Naskh Arabic UI", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+            background: linear-gradient(120deg, var(--bg1), var(--bg2));
+        }
+        
+        header {
+            min-height: 42vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 24px;
+            color: #fff;
+            background: linear-gradient(to top, rgba(0, 0, 0, .6), rgba(0, 0, 0, .25)), url("mike%20poster.png") center/cover no-repeat;
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+        }
+        
+        .brand {
+            display: inline-block;
+            padding: .5rem 1rem;
+            border-radius: 999px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--lava1), var(--lava2));
+            color: #1b0a08;
+            box-shadow: 0 10px 30px rgba(255, 64, 0, .25);
+        }
+        
+        h1 {
+            margin: .8rem 0 0;
+            font-size: clamp(1.8rem, 4vw, 3rem)
+        }
+        
+        .subtitle {
+            margin-top: .4rem;
+            color: var(--muted)
+        }
+        
+        .wrap {
+            max-width: 1000px;
+            margin: -50px auto 48px;
+            padding: 0 16px
+        }
+        
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .04));
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 22px;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+        
+        .profile {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 16px;
+            align-items: center
+        }
+        
+        @media (max-width:640px) {
+            .profile {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+        }
+        
+        .avatar {
+            width: 160px;
+            aspect-ratio: 975 / 2372;
+            /* نسبة صورة mike.png */
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .15)
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+        
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px
+        }
+        
+        .chip {
+            padding: .35rem .7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            background: rgba(255, 255, 255, .06)
+        }
+        
+        .btnbar {
+            margin-top: 14px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, var(--lava1), var(--lava2));
+            color: #1b0a08;
+            padding: .75rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700
+        }
+        
+        .btn.ghost {
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .2)
+        }
+        
+        .next-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(90deg, #1e90ff, #4682b4);
+            color: #fff;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 15px rgba(30, 144, 255, 0.3);
+        }
+        /* عند المرور بالماوس */
+        
+        .next-btn:hover {
+            background: linear-gradient(90deg, #4682b4, #1e90ff);
+            box-shadow: 0 8px 20px rgba(30, 144, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        /* عند الضغط */
+        
+        .next-btn:active {
+            transform: scale(0.94);
+            box-shadow: 0 4px 10px rgba(30, 144, 255, 0.2);
+        }
+        
+        .section {
+            margin-top: 16px
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 10px
+        }
+        
+        .tile {
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #120806
+        }
+        
+        .tile.large {
+            grid-column: span 7;
+            aspect-ratio: 1011 / 1350;
+            /* نسبة صورة mike poster.png */
+        }
+        
+        .tile.small {
+            grid-column: span 5;
+            aspect-ratio: 975 / 2372;
+            /* نسبة صورة mike.png */
+        }
+        
+        @media (max-width:900px) {
+            .tile.large,
+            .tile.small {
+                grid-column: span 12
+            }
+        }
+        
+        footer {
+            margin: 28px auto 12px;
+            text-align: center;
+            color: #ffeadf
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <span class="brand">Mikey the Cat • ميكي ذا كات</span>
+            <h1>Mikey the Cat</h1>
+            <p class="subtitle">قط برتقالي يطلق الحمم • متسرّع ويحب المغامرة</p>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card">
+            <div class="profile">
+                <div class="avatar" aria-hidden="true">
+                    <img src="mike.png" alt="صورة Mikey the Cat">
+                </div>
+                <div>
+                    <h2 style="margin:0 0 .25rem 0;font-size:1.3rem">نبذة سريعة</h2>
+                    <p style="margin:.25rem 0 .7rem 0;color:#ffe8dd">
+                        مايكي (Mikey) قطّ برتقالي قادر على إطلاق الحمم البركانية من جسده. عمره 18 سنة، متهوّر ويعشق المغامرات.
+                    </p>
+                    <div class="chips">
+                        <span class="chip">العمر: 18</span>
+                        <span class="chip">النوع: ذكر</span>
+                        <span class="chip">القدرة: حمم بركانية</span>
+                        <span class="chip">الطبع: متسرّع ومغامر</span>
+                        <span class="chip">الدور في القصه: Hero protagonist </span>
+                    </div>
+                    <div class="btnbar">
+                        <a class="btn" href="index.html">الرجوع للرئيسية</a>
+                        <a class="btn ghost" href="#gallery">مشاهدة الصور</a>
+                        <a href="selva.html" class="next-btn">Next Character</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="gallery">
+                <h2 style="margin:0 0 .5rem 0">المعرض</h2>
+                <div class="gallery">
+                    <figure class="tile large">
+                        <img src="mike%20poster.png" alt="بوستر تعريفي لـ Mikey the Cat" style="width:100%;height:100%;object-fit:cover">
+                    </figure>
+                    <figure class="tile small">
+                        <img src="mike.png" alt="صورة Mikey" style="width:100%;height:100%;object-fit:cover">
+                    </figure>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <h2 style="color: var(--accent-color); margin-bottom: 10px;">Lava Axis</h2>
+            <p style="margin-bottom: 20px;">© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong>.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

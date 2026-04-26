@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selva the Cat | سيلفا ذا كات</title>
+    <style>
+         :root {
+            --blue1: #1e90ff;
+            /* أزرق */
+            --blue2: #4682b4;
+            /* أزرق غامق */
+            --lightblue: #b3d9ff;
+            /* لبني */
+            --bg1: rgb(100, 149, 195);
+            /* خلفية لبني فاتح */
+            --bg2: #a6d8f7;
+            /* أبيض */
+            --text: #003366;
+            /* أزرق غامق للنص */
+            --muted: #4a90e2;
+            /* لبني متوسط */
+        }
+        
+        * {
+            box-sizing: border-box
+        }
+        
+        html,
+        body {
+            height: 100%
+        }
+        
+        body {
+            margin: 0;
+            color: var(--text);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Naskh Arabic UI", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+            background: linear-gradient(120deg, var(--bg1), var(--bg2));
+        }
+        
+        header {
+            min-height: 42vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 24px;
+            color: #537f86;
+            background: linear-gradient(to top, rgba(0, 51, 102, .6), rgba(0, 102, 204, .25)), url("selva%20poster.png") center/cover no-repeat;
+            border-bottom: 1px solid rgba(0, 102, 204, .25);
+        }
+        
+        .brand {
+            display: inline-block;
+            padding: .5rem 1rem;
+            border-radius: 999px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--blue1), var(--blue2));
+            color: #7b9e9f;
+            box-shadow: 0 10px 30px rgba(30, 144, 255, .3);
+        }
+        
+        h1 {
+            margin: .8rem 0 0;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: #b5f9f2;
+        }
+        
+        .subtitle {
+            margin-top: .4rem;
+            color: var(--lightblue)
+        }
+        
+        .wrap {
+            max-width: 1000px;
+            margin: -50px auto 48px;
+            padding: 0 16px
+        }
+        
+        .card {
+            background: linear-gradient(180deg, rgba(119, 188, 223, 0.95), rgba(68, 112, 154, 0.9));
+            border: 1px solid rgba(0, 102, 204, .25);
+            border-radius: 22px;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+        
+        .profile {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 16px;
+            align-items: center
+        }
+        
+        @media (max-width:640px) {
+            .profile {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+        }
+        
+        .avatar {
+            width: 160px;
+            aspect-ratio: 975 / 2372;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--lightblue);
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+        
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px
+        }
+        
+        .chip {
+            padding: .35rem .7rem;
+            border-radius: 999px;
+            border: 1px solid var(--blue2);
+            background: var(--lightblue);
+            color: #003366;
+            font-weight: 600;
+        }
+        
+        .btnbar {
+            margin-top: 14px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, var(--blue1), var(--blue2));
+            color: #fff;
+            padding: .75rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700
+        }
+        
+        .btn.ghost {
+            background: rgba(255, 255, 255, .9);
+            color: var(--blue2);
+            border: 1px solid var(--blue1)
+        }
+        
+        .last-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(90deg, #ff1e1e, #b44646);
+            color: #000000;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 15px rgba(255, 30, 30, 0.3);
+        }
+        /* عند المرور بالماوس */
+        
+        .last-btn:hover {
+            background: linear-gradient(90deg, #b44646, #ff1e1e);
+            box-shadow: 0 8px 20px rgba(255, 30, 30, 0.4);
+            transform: translateY(-2px);
+        }
+        /* عند الضغط */
+        
+        .last-btn:active {
+            transform: scale(0.94);
+            box-shadow: 0 4px 10px rgba(255, 30, 30, 0.2);
+        }
+        
+        .next-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(90deg, #1e90ff, #4682b4);
+            color: #fff;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 15px rgba(30, 144, 255, 0.3);
+        }
+        /* عند المرور بالماوس */
+        
+        .next-btn:hover {
+            background: linear-gradient(90deg, #4682b4, #1e90ff);
+            box-shadow: 0 8px 20px rgba(30, 144, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        /* عند الضغط */
+        
+        .next-btn:active {
+            transform: scale(0.94);
+            box-shadow: 0 4px 10px rgba(30, 144, 255, 0.2);
+        }
+        
+        .section {
+            margin-top: 16px
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 10px
+        }
+        
+        .tile {
+            border: 1px solid rgba(0, 102, 204, .25);
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--bg1);
+        }
+        
+        .tile.large {
+            grid-column: span 7;
+            aspect-ratio: 1011 / 1350;
+        }
+        
+        .tile.small {
+            grid-column: span 5;
+            aspect-ratio: 975 / 2372;
+        }
+        
+        @media (max-width:900px) {
+            .tile.large,
+            .tile.small {
+                grid-column: span 12
+            }
+        }
+        
+        footer {
+            margin: 28px auto 12px;
+            text-align: center;
+            color: var(--blue2)
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <span class="brand">Selva the Cat • سيلفا ذا كات</span>
+            <h1>Selva the Cat</h1>
+            <p class="subtitle">قطة بيضاء تستطيع تشكيل المادة • متفائلة ومليئة بالحيوية.</p>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="card">
+            <div class="profile">
+                <div class="avatar" aria-hidden="true">
+                    <img src="selva1.png" alt="صورة Selva the Cat">
+                </div>
+                <div>
+                    <h2 style="margin:0 0 .25rem 0;font-size:1.3rem;color:var(--blue2)">نبذة سريعة</h2>
+                    <p style="margin:.25rem 0 .7rem 0;color:var(--blue1)">
+                        سيلفا (Selva) قطة بيضاء تسخر المادة وتساعد الآخرين. متفائلة ومليئة بالحيوية.
+                    </p>
+                    <div class="chips">
+                        <span class="chip">العمر: 18</span>
+                        <span class="chip">النوع: أنثى</span>
+                        <span class="chip">القدرة: تشكيل المادة</span>
+                        <span class="chip">الطبع: متفائلة ومليئة بالحيوية</span>
+                        <span class="chip">الدور في القصه: Tritagonist </span>
+                    </div>
+                    <div class="btnbar">
+                        <a class="btn" href="index.html">الرجوع للرئيسية</a>
+                        <a class="btn ghost" href="#gallery">مشاهدة الصور</a>
+                        <a href="Mikey.html" class="last-btn">Last Character</a>
+                        <a href="Ego.html" class="next-btn">Next Character</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="gallery">
+                <h2 style="margin:0 0 .5rem 0;color:var(--blue2)">المعرض</h2>
+                <div class="gallery">
+                    <figure class="tile large">
+                        <img src="selva%20poster.png" alt="بوستر تعريفي لـ Selva the Cat" style="width:100%;height:100%;object-fit:cover">
+                    </figure>
+                    <figure class="tile small">
+                        <img src="selva1.png" alt="صورة Selva" style="width:100%;height:100%;object-fit:cover">
+                    </figure>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <h2 style="color: var(--blue1); margin-bottom: 10px;">Lava Axis</h2>
+            <p style="margin-bottom: 20px;">© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong>.</p>
+        </footer>
+    </main>
+</body>
+
+</html>
