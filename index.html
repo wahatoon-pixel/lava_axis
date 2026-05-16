@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lava Axis</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap"
+    rel="stylesheet">
 
   <meta property="og:title" content="Lava Axis" />
   <meta property="og:description" content="كرتون فانتزيا داكن متحرك - أكشن ومغامرة" />
@@ -14,21 +16,29 @@
 
   <style>
     /* ===== RESET & ROOT ===== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:        #0b0d11;
-      --surface:   #13161d;
-      --surface-2: #1a1e28;
-      --primary:   #ff5a1f;
-      --primary-dim: rgba(255,90,31,.15);
-      --text:      #eef0f5;
-      --muted:     #7a8090;
-      --border:    rgba(255,255,255,.07);
-      --glow:      rgba(255,90,31,.35);
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #0b0d11;
+      --surface: #13161d;
+      --surface-2: #1a1e28;
+      --primary: #ff5a1f;
+      --primary-dim: rgba(255, 90, 31, .15);
+      --text: #eef0f5;
+      --muted: #7a8090;
+      --border: rgba(255, 255, 255, .07);
+      --glow: rgba(255, 90, 31, .35);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Cairo', sans-serif;
@@ -57,7 +67,7 @@
     .nav-inner {
       max-width: 1200px;
       margin: 0 auto;
-      background: rgba(11,13,17,.72);
+      background: rgba(11, 13, 17, .72);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border);
@@ -75,7 +85,10 @@
       color: var(--primary);
     }
 
-    .nav-links { display: flex; gap: 32px; }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
 
     .nav-links a {
       color: var(--muted);
@@ -85,9 +98,15 @@
       transition: color .25s;
     }
 
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover {
+      color: var(--text);
+    }
 
-    .nav-studios { display: flex; align-items: center; gap: 14px; }
+    .nav-studios {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
     .nav-studios img {
       height: 34px;
@@ -100,7 +119,9 @@
       transition: opacity .2s;
     }
 
-    .nav-studios img:hover { opacity: 1; }
+    .nav-studios img:hover {
+      opacity: 1;
+    }
 
     /* ===== HERO ===== */
     .hero {
@@ -113,16 +134,18 @@
     }
 
     .hero-bg {
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       background:
-        radial-gradient(ellipse 60% 70% at 80% 50%, rgba(255,90,31,.12) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 50% at 20% 80%, rgba(255,90,31,.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 80% 50%, rgba(255, 90, 31, .12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 20% 80%, rgba(255, 90, 31, .06) 0%, transparent 60%),
         var(--bg);
     }
 
     .hero-bg::after {
       content: '';
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
 
@@ -192,7 +215,11 @@
       font-weight: 600;
     }
 
-    .hero-actions { display: flex; gap: 14px; align-items: center; }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
 
     .btn-primary {
       padding: 14px 32px;
@@ -232,8 +259,8 @@
     }
 
     .btn-ghost:hover {
-      border-color: rgba(255,255,255,.2);
-      background: rgba(255,255,255,.05);
+      border-color: rgba(255, 255, 255, .2);
+      background: rgba(255, 255, 255, .05);
     }
 
     .hero-poster {
@@ -246,8 +273,8 @@
       border-radius: 20px;
       display: block;
       box-shadow:
-        0 40px 80px rgba(0,0,0,.6),
-        0 0 60px rgba(255,90,31,.2);
+        0 40px 80px rgba(0, 0, 0, .6),
+        0 0 60px rgba(255, 90, 31, .2);
     }
 
     .hero-poster::before {
@@ -289,7 +316,9 @@
       line-height: 1.8;
     }
 
-    .section-header { margin-bottom: 60px; }
+    .section-header {
+      margin-bottom: 60px;
+    }
 
     /* ===== DIVIDER ===== */
     .divider {
@@ -334,8 +363,10 @@
     .glow-card::before {
       content: '';
       position: absolute;
-      top: -60px; right: -60px;
-      width: 200px; height: 200px;
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      height: 200px;
       background: var(--glow);
       filter: blur(60px);
       border-radius: 50%;
@@ -347,7 +378,10 @@
       gap: 24px;
     }
 
-    .stat-item { position: relative; z-index: 1; }
+    .stat-item {
+      position: relative;
+      z-index: 1;
+    }
 
     .stat-number {
       font-family: 'Bebas Neue', sans-serif;
@@ -384,8 +418,8 @@
 
     .char-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 24px 60px rgba(0,0,0,.5);
-      border-color: rgba(255,90,31,.25);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+      border-color: rgba(255, 90, 31, .25);
     }
 
     .char-img-wrap {
@@ -421,12 +455,33 @@
       text-transform: uppercase;
     }
 
-    .badge-hero    { background: rgba(255,200,50,.15);  color: #f5c842; border: 1px solid rgba(245,200,66,.25); }
-    .badge-villain { background: rgba(200,30,30,.15);    color: #e05555; border: 1px solid rgba(200,30,30,.25); }
-    .badge-support { background: rgba(100,180,255,.12);  color: #7ec4f5; border: 1px solid rgba(100,180,255,.2); }
-    .badge-anti    { background: rgba(160,120,255,.12);  color: #c4a3ff; border: 1px solid rgba(160,120,255,.2); }
+    .badge-hero {
+      background: rgba(255, 200, 50, .15);
+      color: #f5c842;
+      border: 1px solid rgba(245, 200, 66, .25);
+    }
 
-    .char-info { padding: 22px 24px; }
+    .badge-villain {
+      background: rgba(200, 30, 30, .15);
+      color: #e05555;
+      border: 1px solid rgba(200, 30, 30, .25);
+    }
+
+    .badge-support {
+      background: rgba(100, 180, 255, .12);
+      color: #7ec4f5;
+      border: 1px solid rgba(100, 180, 255, .2);
+    }
+
+    .badge-anti {
+      background: rgba(160, 120, 255, .12);
+      color: #c4a3ff;
+      border: 1px solid rgba(160, 120, 255, .2);
+    }
+
+    .char-info {
+      padding: 22px 24px;
+    }
 
     .char-name {
       font-size: 1.15rem;
@@ -460,7 +515,9 @@
       transition: opacity .25s;
     }
 
-    .char-card:hover .char-link { opacity: 1; }
+    .char-card:hover .char-link {
+      opacity: 1;
+    }
 
     /* ===== PRODUCTION ===== */
     .production-grid {
@@ -499,7 +556,10 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .prod-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .prod-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
 
     .prod-role {
       font-size: .78rem;
@@ -558,7 +618,9 @@
       transition: color .2s;
     }
 
-    .social-links a:hover { color: var(--text); }
+    .social-links a:hover {
+      color: var(--text);
+    }
 
     .social-links img {
       width: 18px;
@@ -567,7 +629,9 @@
       transition: opacity .2s;
     }
 
-    .social-links a:hover img { opacity: 1; }
+    .social-links a:hover img {
+      opacity: 1;
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
@@ -576,7 +640,9 @@
         gap: 50px;
       }
 
-      .hero-poster img { width: 200px; }
+      .hero-poster img {
+        width: 200px;
+      }
 
       .story-grid {
         grid-template-columns: 1fr;
@@ -589,24 +655,41 @@
     }
 
     @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .nav-studios img { height: 26px; }
+      .nav-links {
+        display: none;
+      }
 
-      .hero { padding: 90px 0 60px; }
+      .nav-studios img {
+        height: 26px;
+      }
 
-      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .hero {
+        padding: 90px 0 60px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
       .characters-grid {
         grid-template-columns: 1fr 1fr;
       }
 
-      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
 
-      .social-links { justify-content: center; }
+      .social-links {
+        justify-content: center;
+      }
     }
 
     @media (max-width: 420px) {
-      .characters-grid { grid-template-columns: 1fr; }
+      .characters-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ===== SCROLL ANIMATIONS ===== */
@@ -661,7 +744,8 @@
             <span class="tag">كوميدي</span>
             <span class="tag">خيال</span>
           </div>
-          <p class="hero-subtitle">عالم يجمع البشر والحيوانات والمخلوقات الغريبة. قط برتقالي يحمل قوة الحمم البركانية — والمدينة تحتاجه.</p>
+          <p class="hero-subtitle">عالم يجمع البشر والحيوانات والمخلوقات الغريبة. قط برتقالي يحمل قوة الحمم البركانية —
+            والمدينة تحتاجه.</p>
           <div class="hero-actions">
             <a href="#characters" class="btn-primary">اكتشف الشخصيات</a>
             <a href="#story" class="btn-ghost">ملخص القصة</a>
@@ -684,31 +768,17 @@
           <div class="section-label">الملخص</div>
           <h2 class="section-title">القصة</h2>
           <p>
-            تدور أحداث <strong>Lava Axis</strong> حول "مايكي"، قط برتقالي يعيش في مدينة تجمع بين البشر والحيوانات والمخلوقات الغريبة، في عالم خيالي مليء بالعجائب والتحديات.
+            تدور أحداث <strong>Lava Axis</strong> حول "مايكي"، قط برتقالي يعيش في مدينة تجمع بين البشر والحيوانات
+            والمخلوقات الغريبة، في عالم خيالي مليء بالعجائب والتحديات.
           </p>
           <p>
-            مايكي يتمتع بقدرة فريدة على إخراج الحمم البركانية من جسده، ويستخدم هذه القوة لحماية المدينة والعالم من قوى الشر التي تتهدد كل شيء.
+            مايكي يتمتع بقدرة فريدة على إخراج الحمم البركانية من جسده، ويستخدم هذه القوة لحماية المدينة والعالم من قوى
+            الشر التي تتهدد كل شيء.
           </p>
         </div>
         <div class="story-visual fade-up">
           <div class="glow-card">
             <div class="stats-grid">
-              <div class="stat-item">
-                <div class="stat-number">5</div>
-                <div class="stat-label">شخصيات رئيسية</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">2026</div>
-                <div class="stat-label">سنة الإصدار</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">2</div>
-                <div class="stat-label">استوديو إنتاج</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">عوالم للاستكشاف</div>
-              </div>
             </div>
           </div>
         </div>
@@ -929,4 +999,5 @@
   </script>
 
 </body>
+
 </html>
