@@ -1,597 +1,932 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lava Axis</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lava Axis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 
-    <meta
-        property="og:title"
-        content="Lava Axis"
-    />
+  <meta property="og:title" content="Lava Axis" />
+  <meta property="og:description" content="كرتون فانتزيا داكن متحرك - أكشن ومغامرة" />
+  <meta property="og:image" content="https://motoon100.github.io/lava_axis/poster.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image">
 
-    <meta
-        property="og:description"
-        content="موقع يقدم معلومات شاملة حول كرتون لافا اكسيس، بما في ذلك ملخص القصة، الشخصيات الرئيسية، وفريق الإنتاج."
-    />
+  <style>
+    /* ===== RESET & ROOT ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <meta
-        property="og:image"
-        content="https://motoon100.github.io/lava_axis/poster.png"
-    />
+    :root {
+      --bg:        #0b0d11;
+      --surface:   #13161d;
+      --surface-2: #1a1e28;
+      --primary:   #ff5a1f;
+      --primary-dim: rgba(255,90,31,.15);
+      --text:      #eef0f5;
+      --muted:     #7a8090;
+      --border:    rgba(255,255,255,.07);
+      --glow:      rgba(255,90,31,.35);
+    }
 
-    <!-- Recommended extra Open Graph / Twitter tags: replace the https://wahatoonweb.netlify.app/logo.png with your real public absolute URL -->
-    <meta property="og:image:secure_url" content="https://wahatoonweb.netlify.app/logo.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Wahatoon" />
+    html { scroll-behavior: smooth; }
 
-    <!-- Twitter card meta for better previews on Twitter/Telegram/etc. -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Wahatoon">
-    <meta name="twitter:description" content="website about wahatoon channel.">
-    <meta name="twitter:image" content="https://motoon100.github.io/lava_axis/logo.png">
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-    <meta
-        property="og:type"
-        content="website"
-    />
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
 
+    /* ===== NAV ===== */
+    nav {
+      position: sticky;
+      top: 16px;
+      z-index: 1000;
+      padding: 0 28px;
+      margin-bottom: 0;
+    }
 
-    <style>
-            /* ===== شعارات الاستوديو ===== */
-        
-        .studio-logos {
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 16px;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 5px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-        
-        .studio-logo {
-            max-height: 60px;
-            height: auto;
-            width: auto;
-            border-radius: 8px;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
-            object-fit: contain;
-            background-color: #260505;
-            padding: 4px;
-        }
-        /* ===== الثيم ===== */
-        
-         :root {
-            --main-color: #ff4500;
-            --bg-color: #1a0f0f;
-            --text-color: #ffffff;
-            --secondary-color: #ff6347;
-            --card-bg: #2b1c1c;
-            --accent-color: #ffd700;
-            --header-bg: linear-gradient(to right, #400000, #8b0000);
-            --footer-bg: #2d0d0d;
-            --hero-bg: #231313;
-            --evil-bg: #3a1313;
-            --divider: rgba(255, 255, 255, .12);
-        }
-        
-         :root.light {
-            --main-color: #e05228;
-            --bg-color: #fff2eb;
-            --text-color: #222222;
-            --secondary-color: #ffa89e;
-            --card-bg: #fffdfb;
-            --accent-color: #ff9900;
-            --header-bg: linear-gradient(to right, #ffccbc, #ffe5dc);
-            --footer-bg: #ffe6dc;
-            --hero-bg: #fff1ec;
-            --evil-bg: #ffeae6;
-            --divider: rgba(0, 0, 0, .12);
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            margin: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding: 0 20px;
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        /* ===== زر تغيير الثيم ===== */
-        
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--accent-color);
-            font-size: 1.8em;
-            cursor: pointer;
-            z-index: 9999;
-        }
-        /* ===== الترويسة ===== */
-        
-        header {
-            background: var(--header-bg);
-            color: var(--text-color);
-            padding: 30px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            border-radius: 14px;
-            margin-top: 70px;
-        }
-        
-        .logo-container {
-            max-width: 70%;
-        }
-        
-        .logo {
-            font-size: 3em;
-            color: var(--accent-color);
-            margin: 0 0 6px;
-        }
-        
-        .poster-img {
-            width: 200px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-        /* ===== شريط التنقل ===== */
-        
-        nav {
-            background-color: var(--footer-bg);
-            padding: 10px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-radius: 12px;
-            margin-top: 18px;
-        }
-        
-        nav a {
-            color: var(--text-color);
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-        
-        nav a:hover {
-            color: var(--accent-color);
-        }
-        /* ===== المقاطع ===== */
-        
-        section {
-            margin: 30px auto;
-            max-width: 900px;
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 14px;
-            transition: background-color 0.3s;
-        }
-        
-        h2 {
-            color: var(--main-color);
-            margin-bottom: 10px;
-        }
-        /* ===== بطاقة شخصية ===== */
-        
-        .character {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--divider);
-        }
-        
-        .character:last-child {
-            border-bottom: 0;
-        }
-        
-        .character img {
-            width: 100px;
-            height: auto;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s;
-            flex: 0 0 100px;
-        }
-        
-        .character img:hover {
-            transform: scale(1.06);
-        }
-        
-        .character .info {
-            flex: 1;
-            min-width: 0;
-        }
-        /* ===== الأقسام القابلة للفتح/الطي + السكروول ===== */
-        
-        .toggle-section {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease, opacity 0.4s ease;
-            opacity: 0;
-        }
-        
-        .toggle-section.open {
-            /* ارتفاع ثابت مع سكروول داخلي لعرض كل الشخصيات والنص */
-            max-height: 65vh;
-            /* يمكنك تعديل القيمة حسب رغبتك */
-            overflow-y: auto;
-            opacity: 1;
-            padding-inline-end: 6px;
-            /* مساحة لشريط التمرير */
-        }
-        /* مظهر السهم */
-        
-        .arrow {
-            font-size: 0.9em;
-            margin-right: 10px;
-            transition: transform 0.3s ease;
-            display: inline-block;
-        }
-        
-        .arrow.rotate {
-            transform: rotate(180deg);
-        }
-        /* حاويتان بصريتان للأبطال/الأشرار */
-        
-        .hero-box,
-        .evil-box {
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-        }
-        
-        .hero-box {
-            background-color: var(--hero-bg);
-        }
-        
-        .evil-box {
-            background-color: var(--evil-bg);
-        }
-        /* ===== الفوتر ===== */
-        
-        footer {
-            background-color: var(--footer-bg);
-            color: var(--text-color);
-            padding: 30px 20px;
-            text-align: center;
-            margin-top: 50px;
-            border-radius: 14px;
-        }
-        
-        .social-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            font-size: 0.95em;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .social-links img {
-            width: 20px;
-            height: 20px;
-        }
-        /* ===== أزرار بسيطة ===== */
-        
-        .btn {
-            appearance: none;
-            border: 0;
-            padding: 10px 14px;
-            border-radius: 10px;
-            background: var(--secondary-color);
-            color: #fff;
-            cursor: pointer;
-            font-weight: 700;
-        }
-        
-        .btn:hover {
-            filter: brightness(1.05);
-        }
-        /* ===== تخصيص شريط التمرير (اختياري) ===== */
-        
-        .toggle-section.open::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        .toggle-section.open::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, .08);
-            border-radius: 10px;
-        }
-        
-        .toggle-section.open::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .28);
-            border-radius: 10px;
-        }
-        
-        .toggle-section.open {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, .28) rgba(255, 255, 255, .08);
-        }
-        /* ===== استجابة الشاشات ===== */
-        
-        @media (max-width: 768px) {
-            .studio-logos {
-                position: static;
-                flex-direction: column;
-                align-items: center;
-                background: none;
-                padding: 0;
-            }
-            .studio-logo {
-                max-height: 50px;
-            }
-            header {
-                flex-direction: column;
-                text-align: center;
-            }
-            .logo-container {
-                max-width: 100%;
-            }
-            .poster-img {
-                width: 90%;
-                margin-top: 15px;
-            }
-            nav a {
-                display: inline-block;
-                margin: 10px 8px;
-            }
-            .character {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-            .character img {
-                width: 120px;
-                flex-basis: 120px;
-            }
-            .character .info {
-                text-align: center;
-            }
-            .toggle-section.open {
-                max-height: 55vh;
-            }
-        }
-        
-        @media (min-width: 1200px) {
-            section {
-                max-width: 1200px;
-            }
-            .poster-img {
-                width: 240px;
-            }
-            .studio-logo.voxar {
-                width: 230px;
-            }
-            .studio-logo.arua {
-                width: 130px;
-            }
-        }
-        
-        .supported-title {
-            color: #87ceeb;
-            /* لون أزرق فاتح */
-            border-bottom: 2px solid #4682b4;
-            /* لون أزرق داكن للخط السفلي */
-            padding-bottom: 5px;
-            cursor: pointer;
-    </style>
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(11,13,17,.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 3px;
+      color: var(--primary);
+    }
+
+    .nav-links { display: flex; gap: 32px; }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      transition: color .25s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-studios { display: flex; align-items: center; gap: 14px; }
+
+    .nav-studios img {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+      background: #1a0f0f;
+      border-radius: 6px;
+      padding: 3px 6px;
+      opacity: .85;
+      transition: opacity .2s;
+    }
+
+    .nav-studios img:hover { opacity: 1; }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 80px;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 80% 50%, rgba(255,90,31,.12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 20% 80%, rgba(255,90,31,.06) 0%, transparent 60%),
+        var(--bg);
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 10vw, 120px);
+      line-height: .9;
+      letter-spacing: 4px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      color: var(--primary);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      margin: 24px 0 40px;
+      max-width: 460px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .tag {
+      padding: 5px 14px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: .78rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .hero-actions { display: flex; gap: 14px; align-items: center; }
+
+    .btn-primary {
+      padding: 14px 32px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .2s, transform .2s, box-shadow .2s;
+      box-shadow: 0 0 28px var(--glow);
+    }
+
+    .btn-primary:hover {
+      background: #ff7340;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px var(--glow);
+    }
+
+    .btn-ghost {
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color .2s, background .2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,.2);
+      background: rgba(255,255,255,.05);
+    }
+
+    .hero-poster {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .hero-poster img {
+      width: 280px;
+      border-radius: 20px;
+      display: block;
+      box-shadow:
+        0 40px 80px rgba(0,0,0,.6),
+        0 0 60px rgba(255,90,31,.2);
+    }
+
+    .hero-poster::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--primary), transparent 60%);
+      z-index: -1;
+      opacity: .4;
+    }
+
+    /* ===== SECTION BASE ===== */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 5vw, 52px);
+      letter-spacing: 2px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.8;
+    }
+
+    .section-header { margin-bottom: 60px; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ===== STORY ===== */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .story-text p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .story-text p strong {
+      color: var(--primary);
+    }
+
+    .story-visual {
+      position: relative;
+    }
+
+    .glow-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: var(--glow);
+      filter: blur(60px);
+      border-radius: 50%;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .stat-item { position: relative; z-index: 1; }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: .85rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ===== CHARACTERS ===== */
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .char-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+
+    .char-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(0,0,0,.5);
+      border-color: rgba(255,90,31,.25);
+    }
+
+    .char-img-wrap {
+      position: relative;
+      padding-top: 100%;
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+
+    .char-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform .4s ease;
+    }
+
+    .char-card:hover .char-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .char-role-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .badge-hero    { background: rgba(255,200,50,.15);  color: #f5c842; border: 1px solid rgba(245,200,66,.25); }
+    .badge-villain { background: rgba(200,30,30,.15);    color: #e05555; border: 1px solid rgba(200,30,30,.25); }
+    .badge-support { background: rgba(100,180,255,.12);  color: #7ec4f5; border: 1px solid rgba(100,180,255,.2); }
+    .badge-anti    { background: rgba(160,120,255,.12);  color: #c4a3ff; border: 1px solid rgba(160,120,255,.2); }
+
+    .char-info { padding: 22px 24px; }
+
+    .char-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .char-meta {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .char-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .char-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    .char-card:hover .char-link { opacity: 1; }
+
+    /* ===== PRODUCTION ===== */
+    .production-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .prod-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    .prod-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .prod-row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .prod-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prod-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .prod-role {
+      font-size: .78rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .prod-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 0 40px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 4px;
+      color: var(--primary);
+    }
+
+    .footer-copy {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    .social-links a:hover { color: var(--text); }
+
+    .social-links img {
+      width: 18px;
+      height: 18px;
+      filter: invert(1) opacity(.5);
+      transition: opacity .2s;
+    }
+
+    .social-links a:hover img { opacity: 1; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .hero-poster img { width: 200px; }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .production-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-studios img { height: 26px; }
+
+      .hero { padding: 90px 0 60px; }
+
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+
+      .characters-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-inner { flex-direction: column; text-align: center; }
+
+      .social-links { justify-content: center; }
+    }
+
+    @media (max-width: 420px) {
+      .characters-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">☀</button>
-    <div class="top-banner">
-        <div class="studio-logos">
-            <a href="https://motoon100.github.io/aura_animation1/" target="_blank">
-                <img src="Arua.png" alt="Arua Studio" class="studio-logo arua">
-            </a>
-            <img src="Voxar 2.png" alt="Voxar Studio" class="studio-logo voxar">
-        </div>
-</div>
 
-    </div>
-    <header>
-        <div class="logo-container">
-            <div class="logo">Lava Axis</div>
-            <p>كرتون أكشن - مغامرة - فانتزيا - خيال - كوميدي</p>
-        </div>
-        <img src="poster.png" alt="بوستر كرتون Lava Axis" class="poster-img">
-    </header>
-    <nav>
-        <a href="#overview">الملخص</a>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">LAVA AXIS</div>
+      <div class="nav-links">
+        <a href="#story">القصة</a>
         <a href="#characters">الشخصيات</a>
         <a href="#production">الإنتاج</a>
-    </nav>
-    <section id="overview">
-        <h2>ملخص القصة</h2>
-        <p>
-            تدور أحداث كرتون <strong>Lava Axis</strong> حول "مايكي"، قط برتقالي يعيش في مدينة تجمع بين البشر والحيوانات والمخلوقات الغريبة، في عالم خيالي مليء بالعجائب والتحديات. مايكي يتمتع بقدرة على إخراج الحمم البركانية من جسده، ويستخدم هذه القوة لحماية
-            المدينة والعالم من قوى الشر.
-        </p>
-    </section>
-    <section id="characters">
-        <section id="characters">
-            <h2>الشخصيات الرئيسية</h2>
+      </div>
+      <div class="nav-studios">
+        <a href="https://motoon100.github.io/aura_animation1/" target="_blank">
+          <img src="Arua.png" alt="Aura Studio">
+        </a>
+        <img src="Voxar 2.png" alt="Voxar Studio">
+      </div>
+    </div>
+  </nav>
 
-            <!-- بطل 1 -->
-            <div class="hero-box">
-                <h3 onclick="toggleSection('hero1', this)" style="color: #cda32e; border-bottom: 2px solid #ff0000; padding-bottom: 5px; cursor: pointer;">
-                    Hero protagonist<span class="arrow">▼</span>
-                </h3>
-                <div id="hero1" class="toggle-section" aria-live="polite">
-                    <div class="character">
-                        <img src="mike.png" alt="Mikey the Cat" />
-                        <div class="info"><strong>Mikey the Cat</strong><br>العمر: 18 - ذكر<br>قط برتقالي يخرج الحمم البركانية من جسده. متسرع ويحب المغامرة.</div>
-                        <a href="Mikey.html"><button class="btn" type="button">اذهب إلى صفحة Mikey</button></a>
-                    </div>
-                </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-left">
+          <div class="hero-eyebrow">Dark Fantasy · Animated Series</div>
+          <h1 class="hero-title">
+            LAVA
+            <span>AXIS</span>
+          </h1>
+          <div class="hero-tags">
+            <span class="tag">أكشن</span>
+            <span class="tag">مغامرة</span>
+            <span class="tag">فانتزيا</span>
+            <span class="tag">كوميدي</span>
+            <span class="tag">خيال</span>
+          </div>
+          <p class="hero-subtitle">عالم يجمع البشر والحيوانات والمخلوقات الغريبة. قط برتقالي يحمل قوة الحمم البركانية — والمدينة تحتاجه.</p>
+          <div class="hero-actions">
+            <a href="#characters" class="btn-primary">اكتشف الشخصيات</a>
+            <a href="#story" class="btn-ghost">ملخص القصة</a>
+          </div>
+        </div>
+        <div class="hero-poster">
+          <img src="poster.png" alt="Lava Axis Poster">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- STORY -->
+  <section class="section" id="story">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-text fade-up">
+          <div class="section-label">الملخص</div>
+          <h2 class="section-title">القصة</h2>
+          <p>
+            تدور أحداث <strong>Lava Axis</strong> حول "مايكي"، قط برتقالي يعيش في مدينة تجمع بين البشر والحيوانات والمخلوقات الغريبة، في عالم خيالي مليء بالعجائب والتحديات.
+          </p>
+          <p>
+            مايكي يتمتع بقدرة فريدة على إخراج الحمم البركانية من جسده، ويستخدم هذه القوة لحماية المدينة والعالم من قوى الشر التي تتهدد كل شيء.
+          </p>
+        </div>
+        <div class="story-visual fade-up">
+          <div class="glow-card">
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">شخصيات رئيسية</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">2026</div>
+                <div class="stat-label">سنة الإصدار</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">2</div>
+                <div class="stat-label">استوديو إنتاج</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">عوالم للاستكشاف</div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <!-- بطل 2 -->
-            <div class="hero-box">
-                <h3 onclick="toggleSection('hero2', this)" style="color: #0b475c; border-bottom: 2px solid #2c0d55; padding-bottom: 5px; cursor: pointer;">
-                    Duetragonist character<span class="arrow">▼</span>
-                </h3>
-                <div id="hero2" class="toggle-section" aria-live="polite">
-                    <div class="character">
-                        <img src="Ego.png" alt="Ego the Bird" />
-                        <div class="info"><strong>Ego the Bird</strong><br>العمر: 18 - ذكر<br>عصفور أزرق لديه قوي الثلج، نحيف، طويل، مغرور وذكي جدًا.</div>
-                        <a href="Ego.html"><button class="btn" type="button">اذهب إلى صفحة Ego</button></a>
-                    </div>
-                </div>
+  <div class="divider"></div>
+
+  <!-- CHARACTERS -->
+  <section class="section" id="characters">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">الأبطال والأشرار</div>
+        <h2 class="section-title">الشخصيات</h2>
+        <p class="section-desc">كل شخصية لها قوة فريدة وقصة تستحق أن تُروى.</p>
+      </div>
+
+      <div class="characters-grid">
+
+        <!-- Mikey -->
+        <a href="Mikey.html" class="char-card fade-up">
+          <div class="char-img-wrap">
+            <img src="mike.png" alt="Mikey the Cat">
+            <span class="char-role-badge badge-hero">بطل رئيسي</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">Mikey the Cat</div>
+            <div class="char-meta">18 عامًا · ذكر</div>
+            <div class="char-desc">قط برتقالي يخرج الحمم البركانية من جسده. متسرع ويحب المغامرة.</div>
+            <span class="char-link">عرض الملف الكامل ←</span>
+          </div>
+        </a>
+
+        <!-- Ego -->
+        <a href="Ego.html" class="char-card fade-up">
+          <div class="char-img-wrap">
+            <img src="Ego.png" alt="Ego the Bird">
+            <span class="char-role-badge badge-hero">بطل ثانوي</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">Ego the Bird</div>
+            <div class="char-meta">18 عامًا · ذكر</div>
+            <div class="char-desc">عصفور أزرق لديه قوى الثلج. نحيف، طويل، مغرور وذكي جداً.</div>
+            <span class="char-link">عرض الملف الكامل ←</span>
+          </div>
+        </a>
+
+        <!-- Selva -->
+        <a href="selva.html" class="char-card fade-up">
+          <div class="char-img-wrap">
+            <img src="selva1.png" alt="Selva the Cat">
+            <span class="char-role-badge badge-hero">بطلة</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">Selva the Cat</div>
+            <div class="char-meta">18 عامًا · أنثى</div>
+            <div class="char-desc">قطة بيضاء تسخر المادة وتساعد مايكي. متفائلة ومليئة بالحيوية.</div>
+            <span class="char-link">عرض الملف الكامل ←</span>
+          </div>
+        </a>
+
+        <!-- Zanthor -->
+        <div class="char-card fade-up">
+          <div class="char-img-wrap">
+            <img src="Zanthor.png" alt="Zanthor the Wolf">
+            <span class="char-role-badge badge-anti">Anti Hero</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">Zanthor the Wolf</div>
+            <div class="char-meta">25 عامًا · ذكر</div>
+            <div class="char-desc">مقاتل قديم، قوي وذكي. تربطه أسطورة مع أخيه.</div>
+          </div>
+        </div>
+
+        <!-- Valcon -->
+        <div class="char-card fade-up">
+          <div class="char-img-wrap">
+            <img src="Valcon.png" alt="Valcon the Owl">
+            <span class="char-role-badge badge-villain">شرير</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">Valcon the Owl</div>
+            <div class="char-meta">30 عامًا · ذكر</div>
+            <div class="char-desc">بوم عبقري شرير بخطط دقيقة. لديه قوة عضلية غير متوقعة.</div>
+          </div>
+        </div>
+
+        <!-- Firn -->
+        <div class="char-card fade-up">
+          <div class="char-img-wrap">
+            <img src="Firn.png" alt="Firn the Water">
+            <span class="char-role-badge badge-support">داعم</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">Firn the Water</div>
+            <div class="char-meta">18 عامًا · ذكر</div>
+            <div class="char-desc">أمير مملكة الماء، حكيم وهادئ. يتحكم بالماء ويستطيع التضخم.</div>
+          </div>
+        </div>
+
+        <!-- Pyra -->
+        <div class="char-card fade-up">
+          <div class="char-img-wrap">
+            <img src="Pyra.png" alt="Pyra the Fire">
+            <span class="char-role-badge badge-support">داعم</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">Pyra the Fire</div>
+            <div class="char-meta">26 عامًا · أنثى</div>
+            <div class="char-desc">ملكة النار، شخصية نارية ومندفعة. تمثل العنصر الناري النقي.</div>
+          </div>
+        </div>
+
+        <!-- Ziron -->
+        <div class="char-card fade-up">
+          <div class="char-img-wrap">
+            <img src="Ziron.png" alt="Ziron the Wolf">
+            <span class="char-role-badge badge-villain">شرير</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">Ziron the Wolf</div>
+            <div class="char-meta">آلاف السنين · ذكر</div>
+            <div class="char-desc">توأم زانثور، ذكي وشرير. شرب عقاراً ليبقى حياً إلى الأبد.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PRODUCTION -->
+  <section class="section" id="production">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">فريق العمل</div>
+        <h2 class="section-title">الإنتاج</h2>
+      </div>
+
+      <div class="production-grid">
+        <div class="prod-card fade-up">
+          <div class="prod-label">الفريق الإبداعي</div>
+          <div class="prod-row">
+            <div class="prod-item">
+              <span class="prod-role">المؤلف</span>
+              <span class="prod-name">Rabbit & Mohammed Amin</span>
             </div>
-
-            <!-- بطل 3 -->
-            <div class="hero-box">
-                <h3 onclick="toggleSection('hero3', this)" style="color: #b2b2b2; border-bottom: 2px solid #3d3d3d; padding-bottom: 5px; cursor: pointer;">
-                    Tritagonist character<span class="arrow">▼</span>
-                </h3>
-                <div id="hero3" class="toggle-section" aria-live="polite">
-                    <div class="character">
-                        <img src="selva1.png" alt="Selva the Cat" />
-                        <div class="info"><strong>Selva the Cat</strong><br>العمر: 18 - أنثى<br>قطة بيضاء تسخر المادة وتساعد مايكي. متفائلة ومليئة بالحيوية.</div>
-                        <a href="selva.html"><button class="btn" type="button">اذهب إلى صفحة Selva</button></a>
-                    </div>
-                </div>
+            <div class="prod-item">
+              <span class="prod-role">المخرج</span>
+              <span class="prod-name">Mohammed Amin & Nyuyaki</span>
             </div>
+          </div>
+        </div>
 
-            <div class="hero-box">
-
-                <h3 onclick="toggleSection('hero5', this)" style="color: #3d352e; border-bottom: 2px solid #443e39; padding-bottom: 5px; cursor: pointer;">
-                    Anti hero <span class="arrow">▼</span> </h3>
-
-                <div id="hero5" class="toggle-section" aria-live="polite">
-
-                    <div class="character">
-                        <img src="Zanthor.png" alt="Zanthor the Wolf" />
-                        <div class="info"><strong>Zanthor the Wolf</strong><br>العمر: 25 - ذكر<br>مقاتل قديم، قوي وذكي وله أسطورة مع أخيه.</div>
-                    </div>
-
-                </div>
+        <div class="prod-card fade-up">
+          <div class="prod-label">تفاصيل المشروع</div>
+          <div class="prod-row">
+            <div class="prod-item">
+              <span class="prod-role">الاستوديو</span>
+              <span class="prod-name">Voxar & AURA Animation</span>
             </div>
-
-            <!-- الأشرار -->
-            <div class="evil-box">
-                <h3 onclick="toggleSection('evils-content', this)" style="color: #000000; border-bottom: 2px solid #0c0b0b; padding-bottom: 5px; cursor: pointer;">
-                    Villain Antagonist <span class="arrow">▼</span>
-                </h3>
-                <div id="evils-content" class="toggle-section" aria-live="polite">
-                    <div class="character">
-                        <img src="Valcon.png" alt="Valcon the Owl" />
-                        <div class="info"><strong>Valcon the Owl</strong><br>العمر: 30 - ذكر<br>بوم عبقري شرير بخطط دقيقة. لديه قوة عضلية غير متوقعة.</div>
-                    </div>
-                </div>
+            <div class="prod-item">
+              <span class="prod-role">سنة الإصدار</span>
+              <span class="prod-name">2025 – 2027</span>
             </div>
-
-
-            <div class="hero-box">
-
-                <h3 onclick="toggleSection('hero4', this)" class="supported-title">
-                    Supported <span class="arrow">▼</span> </h3>
-
-                <div id="hero4" class="toggle-section" aria-live="polite">
-
-                    <div class="character">
-                        <img src="Firn.png" alt="Firn the Water" />
-                        <div class="info"><strong>Firn the Water</strong><br>العمر: 18 - ذكر<br>أمير مملكة الماء، حكيم وهادئ. يتحكم بالماء ويستطيع التضخم.</div>
-                    </div>
-
-
-                    <div class="character">
-                        <img src="Pyra.png" alt="Pyra the Fire" />
-                        <div class="info"><strong>Pyra the Fire</strong><br>العمر: 26 - أنثى<br>ملكة النار، شخصية نارية ومندفعة. تمثل العنصر الناري النقي.</div>
-                    </div>
-
-                    <div class="character">
-                        <img src="Ziron.png" alt="Ziron the Wolf" />
-                        <div class="info"><strong>Ziron the Wolf</strong><br>العمر: آلاف السنين - ذكر<br>توأم زانثور، شرير، ذكي، شرب عقارًا ليبقى حيًا.</div>
-                    </div>
-
-                </div>
+            <div class="prod-item">
+              <span class="prod-role">عدد الحلقات</span>
+              <span class="prod-name">لم يُعلن بعد</span>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        </section>
-        <section id="production">
-            <h2>الإنتاج</h2>
-            <p><strong>Rabbit & Mohammed Amin</strong> : المؤلف </p>
-            <p><strong>Mohammed Amin & nyuyaki</strong> : المخرج </p>
-            <p><strong>سنة الإصدار:</strong> بين 2025 و 2027</p>
-            <p><strong> Voxar& AURA </strong>: إنتاج </p>
-            <p>عدد الحلقات والمواسم لم يُعلن عنه بعد.</p>
-        </section>
-        <footer>
-            <h2 style="color: var(--accent-color); margin-bottom: 10px;">Lava Axis</h2>
-            <p style="margin-bottom: 20px;">© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong>.</p>
-            <div class="social-links">
-                <a href="https://www.instagram.com/animaster_channel/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/24/1384/1384063.png" alt="Instagram"> Mohammed Amin</a>
-                <a href="https://www.instagram.com/nyuyaki/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/24/1384/1384063.png" alt="Instagram"> Nyuyaki</a>
-                <a href="https://www.instagram.com/therabbit778/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/24/1384/1384063.png" alt="Instagram"> Rabbit</a>
-            </div>
-        </footer>
-        <script>
-            function toggleSection(id, header) {
-                const content = document.getElementById(id);
-                const arrow = header.querySelector('.arrow');
-                const willOpen = !content.classList.contains('open');
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">LAVA AXIS</div>
+          <div class="footer-copy">© 2025 جميع الحقوق محفوظة لـ Voxar</div>
+        </div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/animaster_channel/" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/24/1384/1384063.png" alt="Instagram">
+            Mohammed Amin
+          </a>
+          <a href="https://www.instagram.com/nyuyaki/" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/24/1384/1384063.png" alt="Instagram">
+            Nyuyaki
+          </a>
+          <a href="https://www.instagram.com/therabbit778/" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/24/1384/1384063.png" alt="Instagram">
+            Rabbit
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-                // إغلاق باقي الأقسام عند فتح واحد (اختياري)
-                document.querySelectorAll('.toggle-section').forEach(sec => {
-                    if (sec !== content) sec.classList.remove('open');
-                });
+  <script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
 
-                content.classList.toggle('open');
-                if (arrow) arrow.classList.toggle('rotate', willOpen);
-            }
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
 
-            function toggleTheme() {
-                const root = document.documentElement;
-                const isLight = root.classList.contains('light');
-                root.classList.toggle('light');
-                localStorage.setItem('theme', isLight ? 'dark' : 'light');
-                document.getElementById('themeToggle').textContent = isLight ? '☀' : '🌙';
-            }
-
-            window.onload = () => {
-                const savedTheme = localStorage.getItem('theme') || 'dark';
-                if (savedTheme === 'light') {
-                    document.documentElement.classList.add('light');
-                    document.getElementById('themeToggle').textContent = '🌙';
-                } else {
-                    document.getElementById('themeToggle').textContent = '☀';
-                }
-            }
-        </script>
 </body>
-
 </html>
