@@ -5,288 +5,620 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ego the Bird | ايجو ذا الطائر</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <style>
-         :root {
-            --blue1: #7cd0ff;
-            /* سماوي ثلجي فاتح */
-            --blue2: #4a90e2;
-            /* أزرق ثلجي */
-            --lightblue: #e6f7ff;
-            /* أبيض ثلجي */
-            --bg1: #dff6ff;
-            /* خلفية ثلجية سماوية */
-            --bg2: #f8fdff;
-            /* أبيض ناصع */
-            --text: #00334d;
-            /* أزرق غامق ثلجي للنص */
-            --muted: #88ccee;
-            /* أزرق باهت */
+        :root {
+            --ice1: #a8e4ff;
+            --ice2: #4ab3e8;
+            --ice3: #1a7fc4;
+            --ice4: #cff4ff;
+            --bg1: #020d18;
+            --bg2: #010810;
+            --text: #e8f7ff;
+            --muted: #88cce8;
+            --card-border: rgba(100, 200, 255, 0.2);
         }
-        
+
         * {
-            box-sizing: border-box
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        
+
         html,
         body {
-            height: 100%
+            height: 100%;
         }
-        
+
         body {
-            margin: 0;
             color: var(--text);
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Arabic", Tahoma, Arial, sans-serif;
-            background: linear-gradient(120deg, var(--bg1), var(--bg2));
+            font-family: 'Noto Naskh Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
+            background: var(--bg2);
+            overflow-x: hidden;
         }
-        
+
+        /* Ambient ice glow background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 15% 15%, rgba(30, 140, 220, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 55% 70% at 85% 75%, rgba(0, 100, 180, 0.14) 0%, transparent 55%),
+                radial-gradient(ellipse 45% 45% at 50% 50%, rgba(100, 200, 255, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── HEADER ── */
         header {
-            min-height: 42vh;
-            display: grid;
-            place-items: center;
-            text-align: center;
-            padding: 24px;
-            color: #224455;
-            background: linear-gradient(to top, rgba(150, 220, 255, .6), rgba(200, 240, 255, .4)), url("Ego%20poster.png") center/cover no-repeat;
-            border-bottom: 1px solid rgba(200, 240, 255, .5);
+            position: relative;
+            min-height: 55vh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0 16px 0;
+            overflow: hidden;
         }
-        
-        .brand {
-            display: inline-block;
-            padding: .5rem 1rem;
-            border-radius: 999px;
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--blue1), var(--blue2));
-            color: #fff;
-            box-shadow: 0 10px 30px rgba(100, 200, 255, .4);
+
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            background: url("Ego%20poster.png") center/cover no-repeat;
+            filter: brightness(0.4) saturate(1.3) hue-rotate(5deg);
+            z-index: 0;
+            transform: scale(1.04);
+            animation: slowZoom 14s ease-in-out infinite alternate;
         }
-        
-        h1 {
-            margin: .8rem 0 0;
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            color: #ffffff;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        }
-        
-        .subtitle {
-            margin-top: .4rem;
-            color: var(--blue1);
-        }
-        
-        .wrap {
-            max-width: 1000px;
-            margin: -50px auto 48px;
-            padding: 0 16px
-        }
-        
-        .card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(230, 245, 255, 0.9));
-            border: 1px solid rgba(200, 230, 255, .6);
-            border-radius: 22px;
-            padding: 20px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 8px 25px rgba(150, 200, 255, 0.3);
-        }
-        
-        .profile {
-            display: grid;
-            grid-template-columns: 160px 1fr;
-            gap: 16px;
-            align-items: center;
-        }
-        
-        @media (max-width:640px) {
-            .profile {
-                grid-template-columns: 1fr;
-                text-align: center
+
+        @keyframes slowZoom {
+            from {
+                transform: scale(1.04);
+            }
+
+            to {
+                transform: scale(1.10);
             }
         }
-        
+
+        .header-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                    var(--bg2) 0%,
+                    rgba(1, 8, 16, 0.65) 40%,
+                    rgba(1, 8, 16, 0.1) 100%);
+            z-index: 1;
+        }
+
+        /* Snowflake / ice crystal particles */
+        .crystals {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .crystal {
+            position: absolute;
+            color: rgba(180, 230, 255, 0.7);
+            font-size: var(--sz);
+            top: var(--top);
+            left: var(--left);
+            animation: drift var(--d) linear var(--delay) infinite;
+            user-select: none;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: .8;
+            }
+
+            85% {
+                opacity: .4;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding-bottom: 48px;
+            animation: fadeUp .9s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brand-tag {
+            display: inline-block;
+            font-size: .75rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--ice1);
+            border: 1px solid rgba(100, 200, 255, .4);
+            padding: .35rem .9rem;
+            border-radius: 999px;
+            margin-bottom: 14px;
+            background: rgba(0, 120, 200, .15);
+            backdrop-filter: blur(6px);
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', 'Noto Naskh Arabic', sans-serif;
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            letter-spacing: .04em;
+            line-height: 1;
+            background: linear-gradient(135deg, #fff 30%, var(--ice1) 65%, var(--ice3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+            opacity: .85;
+        }
+
+        /* ── MAIN ── */
+        .wrap {
+            position: relative;
+            z-index: 2;
+            max-width: 1020px;
+            margin: -24px auto 60px;
+            padding: 0 16px;
+        }
+
+        /* ── STATS ── */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 28px;
+            animation: fadeUp .9s .15s ease both;
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .stat-card {
+            background: rgba(0, 120, 200, 0.1);
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            border-radius: 16px;
+            padding: 18px 14px;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--ice1);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* ── PROFILE CARD ── */
+        .card {
+            background: linear-gradient(160deg, rgba(0, 120, 200, 0.1), rgba(255, 255, 255, 0.03));
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 28px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 150, 220, 0.08) inset;
+            animation: fadeUp .9s .25s ease both;
+        }
+
+        .profile {
+            display: grid;
+            grid-template-columns: 155px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 620px) {
+            .profile {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .chips,
+            .btnbar {
+                justify-content: center;
+            }
+        }
+
+        /* Avatar with ice glow */
+        .avatar-wrap {
+            position: relative;
+        }
+
+        .avatar-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 20px;
+            background: linear-gradient(160deg, var(--ice1), var(--ice3));
+            z-index: -1;
+            opacity: .65;
+            filter: blur(12px);
+            animation: iceGlow 3.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes iceGlow {
+            from {
+                opacity: .45;
+                filter: blur(8px);
+            }
+
+            to {
+                opacity: .85;
+                filter: blur(16px);
+            }
+        }
+
         .avatar {
-            width: 160px;
+            width: 155px;
             aspect-ratio: 975 / 2372;
             border-radius: 16px;
             overflow: hidden;
-            border: 2px solid var(--blue1);
-            box-shadow: 0 6px 15px rgba(100, 180, 255, 0.3);
+            border: 1px solid rgba(100, 200, 255, 0.4);
         }
-        
+
         .avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover
+            object-fit: cover;
+            display: block;
         }
-        
+
+        .role-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--ice2), var(--ice3));
+            color: #fff;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .3rem .75rem;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .profile-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: .05em;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .profile-bio {
+            color: #c8e8ff;
+            font-size: .95rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+
         .chips {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px
+            gap: 8px;
+            margin-bottom: 18px;
         }
-        
+
         .chip {
-            padding: .35rem .7rem;
+            padding: .32rem .75rem;
             border-radius: 999px;
-            border: 1px solid var(--blue2);
-            background: var(--lightblue);
-            color: var(--text);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            background: rgba(0, 120, 200, 0.12);
+            font-size: .82rem;
+            color: var(--muted);
+        }
+
+        .chip strong {
+            color: var(--ice1);
             font-weight: 600;
         }
-        
+
         .btnbar {
-            margin-top: 14px;
             display: flex;
             gap: 10px;
-            flex-wrap: wrap
+            flex-wrap: wrap;
         }
-        
+
         .btn {
-            background: linear-gradient(90deg, var(--blue1), var(--blue2));
-            color: #fff;
-            padding: .75rem 1rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700
-        }
-        
-        .btn.ghost {
-            background: rgba(255, 255, 255, .9);
-            color: var(--blue2);
-            border: 1px solid var(--blue1)
-        }
-        
-        .last-btn {
             display: inline-block;
-            text-decoration: none;
-            background: linear-gradient(90deg, #ff9999, #cc4444);
-            color: #fff;
-            font-weight: 700;
-            padding: 12px 24px;
+            padding: .65rem 1.2rem;
             border-radius: 12px;
-            font-size: 1rem;
-            transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 6px 15px rgba(255, 100, 100, 0.3);
-        }
-        
-        .last-btn:hover {
-            background: linear-gradient(90deg, #cc4444, #ff9999);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 120, 120, 0.4);
-        }
-        
-        .next-btn {
-            display: inline-block;
             text-decoration: none;
-            background: linear-gradient(90deg, var(--blue2), var(--blue1));
-            color: #fff;
             font-weight: 700;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 6px 15px rgba(150, 200, 255, 0.4);
+            font-size: .9rem;
+            transition: transform .15s, box-shadow .2s;
         }
-        
-        .next-btn:hover {
-            background: linear-gradient(90deg, var(--blue1), var(--blue2));
+
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(120, 180, 255, 0.5);
         }
-        
-        .section {
-            margin-top: 16px
+
+        .btn:active {
+            transform: scale(0.95);
         }
-        
+
+        .btn-ice {
+            background: linear-gradient(90deg, var(--ice2), var(--ice3));
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(0, 120, 200, 0.4);
+        }
+
+        .btn-ice:hover {
+            box-shadow: 0 10px 28px rgba(0, 150, 240, 0.55);
+        }
+
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.07);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .btn-red {
+            background: linear-gradient(90deg, #ff7070, #cc3333);
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(200, 50, 50, 0.3);
+        }
+
+        .btn-red:hover {
+            box-shadow: 0 10px 28px rgba(220, 60, 60, 0.45);
+        }
+
+        .btn-next {
+            background: linear-gradient(90deg, var(--ice1), var(--ice2));
+            color: #001a2e;
+            font-weight: 800;
+            box-shadow: 0 6px 18px rgba(100, 200, 255, 0.3);
+        }
+
+        .btn-next:hover {
+            box-shadow: 0 10px 28px rgba(100, 200, 255, 0.5);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(100, 200, 255, 0.35), transparent);
+            margin: 28px 0;
+        }
+
+        /* Gallery */
+        .gallery-section {
+            animation: fadeUp .9s .35s ease both;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: .1em;
+            color: var(--ice1);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to left, transparent, rgba(100, 200, 255, 0.4));
+        }
+
         .gallery {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 10px
+            gap: 12px;
         }
-        
+
         .tile {
-            border: 1px solid rgba(200, 230, 255, .5);
-            border-radius: 14px;
+            border: 1px solid rgba(100, 200, 255, 0.18);
+            border-radius: 16px;
             overflow: hidden;
-            background: var(--bg1);
+            background: #010810;
+            transition: transform .25s, box-shadow .25s;
         }
-        
+
+        .tile:hover {
+            transform: scale(1.018);
+            box-shadow: 0 16px 40px rgba(0, 150, 220, 0.25);
+        }
+
         .tile.large {
             grid-column: span 7;
             aspect-ratio: 1011 / 1350;
         }
-        
+
         .tile.small {
             grid-column: span 5;
             aspect-ratio: 975 / 2372;
         }
-        
-        @media (max-width:900px) {
+
+        @media (max-width: 900px) {
+
             .tile.large,
             .tile.small {
-                grid-column: span 12
+                grid-column: span 12;
             }
         }
-        
+
+        .tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Footer */
         footer {
-            margin: 28px auto 12px;
+            position: relative;
+            z-index: 2;
+            margin: 0 auto 24px;
             text-align: center;
-            color: var(--blue2);
+            color: rgba(150, 210, 255, 0.5);
+            font-size: .85rem;
+            padding: 0 16px;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            background: linear-gradient(90deg, var(--ice1), var(--ice2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: .12em;
+            margin-bottom: 4px;
+        }
+
+        /* Frost crack overlay on card */
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: url("data:image/svg+xml,%3Csvg width='400' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 L80 60 L40 80 L100 150 L60 170 M350 0 L320 55 L360 85 L300 160' stroke='rgba(200,240,255,0.04)' stroke-width='1' fill='none'/%3E%3C/svg%3E") center/cover;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card>* {
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
 
 <body>
+
     <header>
-        <div>
-            <span class="brand">Ego the Bird • ايجو ذا الطائر</span>
+        <div class="header-bg"></div>
+        <div class="header-overlay"></div>
+        <div class="crystals" id="crystals"></div>
+        <div class="header-content">
+            <div class="brand-tag">Lava Axis • شخصيات</div>
             <h1>Ego the Bird</h1>
-            <p class="subtitle">عصفور أزرق لديه قوي الثلج، نحيف، طويل، مغرور وذكي جدًا.</p>
+            <p class="subtitle">عصفور أزرق لديه قوى الثلج&nbsp;•&nbsp;مغرور وذكي جدًا</p>
         </div>
     </header>
 
     <main class="wrap">
+
+        <!-- Profile Card -->
         <section class="card">
             <div class="profile">
-                <div class="avatar">
-                    <img src="Ego.png" alt="Ego">
+                <div class="avatar-wrap">
+                    <div class="avatar">
+                        <img src="Ego 2.png" alt="صورة Ego the Bird">
+                    </div>
                 </div>
                 <div>
-                    <h2 style="margin:0 0 .25rem 0;font-size:1.3rem;color:var(--blue2)">نبذة سريعة</h2>
-                    <p style="margin:.25rem 0 .7rem 0;color:var(--blue1)">
-                        ايجو (Ego) عصفور أزرق لديه قوي الثلج، نحيف، طويل، مغرور وذكي جدًا.
+                    <span class="role-badge">Deuteragonist</span>
+                    <div class="profile-name">Ego the Bird</div>
+                    <p class="profile-bio">
+                        ايجو عصفور أزرق يمتلك قدرة إطلاق قوى الثلج الهائلة. نحيف، طويل، وشديد الثقة بنفسه —
+                        يرى نفسه الأذكى في أي غرفة يدخلها، وغالبًا ما يكون محقًا.
                     </p>
                     <div class="chips">
-                        <span class="chip">العمر: 18</span>
-                        <span class="chip">النوع: ذكر</span>
-                        <span class="chip">القدرة: قوي الثلج</span>
-                        <span class="chip">الطبع: مغرور وذكي جدًا</span>
-                        <span class="chip">الدور في القصه: Duetragonist</span>
+                        <span class="chip"><strong>العمر</strong>&nbsp;18</span>
+                        <span class="chip"><strong>النوع</strong>&nbsp;ذكر</span>
+                        <span class="chip"><strong>القدرة</strong>&nbsp;قوى الثلج</span>
+                        <span class="chip"><strong>الطبع</strong>&nbsp;مغرور وذكي جدًا</span>
                     </div>
                     <div class="btnbar">
-                        <a class="btn" href="index.html">الرجوع للرئيسية</a>
-                        <a class="btn ghost" href="#gallery">مشاهدة الصور</a>
-                        <a href="selva.html" class="last-btn">Last Character</a>
-                        <a href="Ego.html" class="next-btn">Next Character</a>
+                        <a class="btn btn-ice" href="index.html">الرئيسية</a>
+                        <a class="btn btn-ghost" href="#gallery">مشاهدة الصور</a>
+                        <a class="btn btn-red" href="selva.html">← Last Character</a>
+                        <a class="btn btn-next" href="Ego.html">Next Character →</a>
                     </div>
                 </div>
             </div>
 
-            <div class="section" id="gallery">
-                <h2 style="margin:0 0 .5rem 0;color:var(--blue2)">المعرض</h2>
+            <div class="divider"></div>
+
+            <!-- Gallery -->
+            <div class="gallery-section" id="gallery">
+                <div class="section-title">المعرض</div>
                 <div class="gallery">
                     <figure class="tile large">
-                        <img src="Ego%20poster.png" alt="بوستر Ego the Bird" style="width:100%;height:100%;object-fit:cover">
+                        <img src="Ego%20poster.png" alt="بوستر Ego the Bird">
                     </figure>
                     <figure class="tile small">
-                        <img src="Ego.png" alt="صورة Ego" style="width:100%;height:100%;object-fit:cover">
+                        <img src="Ego 2.png" alt="صورة Ego">
                     </figure>
                 </div>
             </div>
         </section>
-        <footer>
-            <h2 style="color: var(--blue1); margin-bottom: 10px;">Lava Axis</h2>
-            <p style="margin-bottom: 20px;">© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong>.</p>
-        </footer>
     </main>
+
+    <footer>
+        <div class="footer-logo">LAVA AXIS</div>
+        <p>© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong></p>
+    </footer>
+
+    <script>
+        // Ice crystal / snowflake particles
+        const flakes = ['❄', '❅', '❆', '✦', '·'];
+        const container = document.getElementById('crystals');
+        for (let i = 0; i < 22; i++) {
+            const el = document.createElement('div');
+            el.className = 'crystal';
+            const sz = Math.random() * 14 + 8;
+            el.style.cssText = `
+                --sz: ${sz}px;
+                --top: ${Math.random() * 20}%;
+                --left: ${Math.random() * 100}%;
+                --d: ${6 + Math.random() * 8}s;
+                --delay: ${Math.random() * 8}s;
+                font-size: ${sz}px;
+            `;
+            el.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+            container.appendChild(el);
+        }
+    </script>
 </body>
 
 </html>

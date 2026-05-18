@@ -5,265 +5,588 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mikey the Cat | ميكي ذا كات</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <style>
-         :root {
+        :root {
             --lava1: #ff6a00;
             --lava2: #ff2d2d;
             --lava3: #ffa400;
-            --bg1: #2a0f0b;
-            --bg2: #190a07;
+            --lava4: #ffcc00;
+            --bg1: #1a0800;
+            --bg2: #0d0300;
             --text: #fff7f0;
             --muted: #ffd9c2;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 140, 0, 0.2);
         }
-        
+
         * {
-            box-sizing: border-box
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        
+
         html,
         body {
-            height: 100%
+            height: 100%;
         }
-        
+
         body {
-            margin: 0;
             color: var(--text);
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Naskh Arabic UI", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
-            background: linear-gradient(120deg, var(--bg1), var(--bg2));
+            font-family: 'Noto Naskh Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
+            background: var(--bg2);
+            overflow-x: hidden;
         }
-        
+
+        /* ── Lava noise background ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(255, 80, 0, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 80% at 80% 80%, rgba(200, 30, 0, 0.14) 0%, transparent 55%),
+                radial-gradient(ellipse 40% 40% at 55% 40%, rgba(255, 160, 0, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── HEADER ── */
         header {
-            min-height: 42vh;
-            display: grid;
-            place-items: center;
-            text-align: center;
-            padding: 24px;
-            color: #fff;
-            background: linear-gradient(to top, rgba(0, 0, 0, .6), rgba(0, 0, 0, .25)), url("mike%20poster.png") center/cover no-repeat;
-            border-bottom: 1px solid rgba(255, 255, 255, .12);
+            position: relative;
+            min-height: 55vh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0 16px 0;
+            overflow: hidden;
         }
-        
-        .brand {
-            display: inline-block;
-            padding: .5rem 1rem;
-            border-radius: 999px;
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--lava1), var(--lava2));
-            color: #1b0a08;
-            box-shadow: 0 10px 30px rgba(255, 64, 0, .25);
+
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            background: url("mike%20poster.png") center/cover no-repeat;
+            filter: brightness(0.45) saturate(1.4);
+            z-index: 0;
+            transform: scale(1.04);
+            animation: slowZoom 14s ease-in-out infinite alternate;
         }
-        
-        h1 {
-            margin: .8rem 0 0;
-            font-size: clamp(1.8rem, 4vw, 3rem)
-        }
-        
-        .subtitle {
-            margin-top: .4rem;
-            color: var(--muted)
-        }
-        
-        .wrap {
-            max-width: 1000px;
-            margin: -50px auto 48px;
-            padding: 0 16px
-        }
-        
-        .card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .04));
-            border: 1px solid rgba(255, 255, 255, .12);
-            border-radius: 22px;
-            padding: 20px;
-            backdrop-filter: blur(8px);
-        }
-        
-        .profile {
-            display: grid;
-            grid-template-columns: 160px 1fr;
-            gap: 16px;
-            align-items: center
-        }
-        
-        @media (max-width:640px) {
-            .profile {
-                grid-template-columns: 1fr;
-                text-align: center
+
+        @keyframes slowZoom {
+            from {
+                transform: scale(1.04);
+            }
+
+            to {
+                transform: scale(1.10);
             }
         }
-        
+
+        .header-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                    var(--bg2) 0%,
+                    rgba(13, 3, 0, 0.7) 40%,
+                    rgba(13, 3, 0, 0.1) 100%);
+            z-index: 1;
+        }
+
+        /* Ember particles */
+        .embers {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .ember {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--lava3);
+            opacity: 0;
+            animation: rise var(--d) ease-in var(--delay) infinite;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: .9;
+            }
+
+            80% {
+                opacity: .4;
+            }
+
+            100% {
+                transform: translateY(-120px) scale(0.2);
+                opacity: 0;
+            }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding-bottom: 48px;
+            animation: fadeUp .9s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brand-tag {
+            display: inline-block;
+            font-size: .75rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--lava3);
+            border: 1px solid rgba(255, 164, 0, .4);
+            padding: .35rem .9rem;
+            border-radius: 999px;
+            margin-bottom: 14px;
+            background: rgba(255, 100, 0, .12);
+            backdrop-filter: blur(6px);
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', 'Noto Naskh Arabic', sans-serif;
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            letter-spacing: .04em;
+            line-height: 1;
+            background: linear-gradient(135deg, #fff 30%, var(--lava3) 65%, var(--lava2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+            opacity: .85;
+        }
+
+        /* ── MAIN CONTENT ── */
+        .wrap {
+            position: relative;
+            z-index: 2;
+            max-width: 1020px;
+            margin: -24px auto 60px;
+            padding: 0 16px;
+        }
+
+        /* ── PROFILE CARD ── */
+        .card {
+            background: linear-gradient(160deg, rgba(255, 100, 0, 0.07), rgba(255, 255, 255, 0.03));
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 28px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 120, 0, 0.08) inset;
+            animation: fadeUp .9s .15s ease both;
+        }
+
+        .profile {
+            display: grid;
+            grid-template-columns: 155px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 620px) {
+            .profile {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .chips,
+            .btnbar {
+                justify-content: center;
+            }
+        }
+
+        /* Avatar with lava glow */
+        .avatar-wrap {
+            position: relative;
+        }
+
+        .avatar-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 20px;
+            background: linear-gradient(160deg, var(--lava1), var(--lava2));
+            z-index: -1;
+            opacity: .7;
+            filter: blur(10px);
+            animation: glowPulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            from {
+                opacity: .5;
+                filter: blur(8px);
+            }
+
+            to {
+                opacity: .9;
+                filter: blur(14px);
+            }
+        }
+
         .avatar {
-            width: 160px;
+            width: 155px;
             aspect-ratio: 975 / 2372;
-            /* نسبة صورة mike.png */
             border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, .15)
+            border: 1px solid rgba(255, 140, 0, 0.35);
         }
-        
+
         .avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover
+            object-fit: cover;
+            display: block;
         }
-        
+
+        /* Role badge */
+        .role-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--lava1), var(--lava2));
+            color: #1b0a08;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .3rem .75rem;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .profile-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: .05em;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .profile-bio {
+            color: #ffe0cc;
+            font-size: .95rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+
+        /* Chips */
         .chips {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px
+            gap: 8px;
+            margin-bottom: 18px;
         }
-        
+
         .chip {
-            padding: .35rem .7rem;
+            padding: .32rem .75rem;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, .2);
-            background: rgba(255, 255, 255, .06)
+            border: 1px solid rgba(255, 140, 0, 0.3);
+            background: rgba(255, 100, 0, 0.1);
+            font-size: .82rem;
+            color: var(--muted);
         }
-        
+
+        .chip strong {
+            color: var(--lava3);
+            font-weight: 600;
+        }
+
+        /* Buttons */
         .btnbar {
-            margin-top: 14px;
             display: flex;
             gap: 10px;
-            flex-wrap: wrap
+            flex-wrap: wrap;
         }
-        
+
         .btn {
-            background: linear-gradient(90deg, var(--lava1), var(--lava2));
-            color: #1b0a08;
-            padding: .75rem 1rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700
-        }
-        
-        .btn.ghost {
-            background: rgba(255, 255, 255, .08);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, .2)
-        }
-        
-        .next-btn {
             display: inline-block;
-            text-decoration: none;
-            background: linear-gradient(90deg, #1e90ff, #4682b4);
-            color: #fff;
-            font-weight: 700;
-            padding: 12px 24px;
+            padding: .65rem 1.2rem;
             border-radius: 12px;
-            font-size: 1rem;
-            transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 6px 15px rgba(30, 144, 255, 0.3);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: .9rem;
+            transition: transform .15s, box-shadow .2s;
         }
-        /* عند المرور بالماوس */
-        
-        .next-btn:hover {
-            background: linear-gradient(90deg, #4682b4, #1e90ff);
-            box-shadow: 0 8px 20px rgba(30, 144, 255, 0.4);
+
+        .btn:hover {
             transform: translateY(-2px);
         }
-        /* عند الضغط */
-        
-        .next-btn:active {
-            transform: scale(0.94);
-            box-shadow: 0 4px 10px rgba(30, 144, 255, 0.2);
+
+        .btn:active {
+            transform: scale(0.95);
         }
-        
-        .section {
-            margin-top: 16px
+
+        .btn-lava {
+            background: linear-gradient(90deg, var(--lava1), var(--lava2));
+            color: #1b0a08;
+            box-shadow: 0 6px 18px rgba(255, 80, 0, 0.35);
         }
-        
+
+        .btn-lava:hover {
+            box-shadow: 0 10px 28px rgba(255, 80, 0, 0.5);
+        }
+
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.07);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .btn-blue {
+            background: linear-gradient(90deg, #1e90ff, #4682b4);
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(30, 144, 255, 0.3);
+        }
+
+        .btn-blue:hover {
+            box-shadow: 0 10px 28px rgba(30, 144, 255, 0.45);
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 140, 0, 0.35), transparent);
+            margin: 28px 0;
+        }
+
+        /* ── STATS ROW ── */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 28px;
+            animation: fadeUp .9s .25s ease both;
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .stat-card {
+            background: rgba(255, 80, 0, 0.08);
+            border: 1px solid rgba(255, 120, 0, 0.2);
+            border-radius: 16px;
+            padding: 18px 14px;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--lava3);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* ── GALLERY ── */
+        .gallery-section {
+            animation: fadeUp .9s .35s ease both;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: .1em;
+            color: var(--lava3);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to left, transparent, rgba(255, 140, 0, 0.4));
+        }
+
         .gallery {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 10px
+            gap: 12px;
         }
-        
+
         .tile {
-            border: 1px solid rgba(255, 255, 255, .12);
-            border-radius: 14px;
+            border: 1px solid rgba(255, 120, 0, 0.18);
+            border-radius: 16px;
             overflow: hidden;
-            background: #120806
+            background: #0d0300;
+            transition: transform .25s, box-shadow .25s;
         }
-        
+
+        .tile:hover {
+            transform: scale(1.018);
+            box-shadow: 0 16px 40px rgba(255, 80, 0, 0.25);
+        }
+
         .tile.large {
             grid-column: span 7;
             aspect-ratio: 1011 / 1350;
-            /* نسبة صورة mike poster.png */
         }
-        
+
         .tile.small {
             grid-column: span 5;
             aspect-ratio: 975 / 2372;
-            /* نسبة صورة mike.png */
         }
-        
-        @media (max-width:900px) {
+
+        @media (max-width: 900px) {
+
             .tile.large,
             .tile.small {
-                grid-column: span 12
+                grid-column: span 12;
             }
         }
-        
+
+        .tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ── FOOTER ── */
         footer {
-            margin: 28px auto 12px;
+            position: relative;
+            z-index: 2;
+            margin: 0 auto 24px;
             text-align: center;
-            color: #ffeadf
+            color: rgba(255, 220, 190, 0.55);
+            font-size: .85rem;
+            padding: 0 16px;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            background: linear-gradient(90deg, var(--lava1), var(--lava3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: .12em;
+            margin-bottom: 4px;
         }
     </style>
 </head>
 
 <body>
+
+    <!-- Ember Particles -->
     <header>
-        <div>
-            <span class="brand">Mikey the Cat • ميكي ذا كات</span>
+        <div class="header-bg"></div>
+        <div class="header-overlay"></div>
+        <div class="embers" id="embers"></div>
+        <div class="header-content">
+            <div class="brand-tag">Lava Axis • شخصيات</div>
             <h1>Mikey the Cat</h1>
-            <p class="subtitle">قط برتقالي يطلق الحمم • متسرّع ويحب المغامرة</p>
+            <p class="subtitle">قط برتقالي يطلق الحمم&nbsp;•&nbsp;متسرّع ويحب المغامرة</p>
         </div>
     </header>
 
     <main class="wrap">
+        <!-- Profile Card -->
         <section class="card">
             <div class="profile">
-                <div class="avatar" aria-hidden="true">
-                    <img src="mike.png" alt="صورة Mikey the Cat">
+                <div class="avatar-wrap">
+                    <div class="avatar">
+                        <img src="mike.png" alt="صورة Mikey the Cat">
+                    </div>
                 </div>
                 <div>
-                    <h2 style="margin:0 0 .25rem 0;font-size:1.3rem">نبذة سريعة</h2>
-                    <p style="margin:.25rem 0 .7rem 0;color:#ffe8dd">
-                        مايكي (Mikey) قطّ برتقالي قادر على إطلاق الحمم البركانية من جسده. عمره 18 سنة، متهوّر ويعشق المغامرات.
+                    <span class="role-badge">Hero Protagonist</span>
+                    <div class="profile-name">Mikey the Cat</div>
+                    <p class="profile-bio">
+                        مايكي قطّ برتقالي استثنائي يمتلك قدرة غريبة على إطلاق الحمم البركانية من جسده.
+                        شخصية متهوّرة تعيش على حافة الخطر، لكنه في القلب بطل حقيقي.
                     </p>
                     <div class="chips">
-                        <span class="chip">العمر: 18</span>
-                        <span class="chip">النوع: ذكر</span>
-                        <span class="chip">القدرة: حمم بركانية</span>
-                        <span class="chip">الطبع: متسرّع ومغامر</span>
-                        <span class="chip">الدور في القصه: Hero protagonist </span>
+                        <span class="chip"><strong>العمر</strong>&nbsp;18</span>
+                        <span class="chip"><strong>النوع</strong>&nbsp;ذكر</span>
+                        <span class="chip"><strong>القدرة</strong>&nbsp;حمم بركانية</span>
+                        <span class="chip"><strong>الطبع</strong>&nbsp;متسرّع ومغامر</span>
                     </div>
                     <div class="btnbar">
-                        <a class="btn" href="index.html">الرجوع للرئيسية</a>
-                        <a class="btn ghost" href="#gallery">مشاهدة الصور</a>
-                        <a href="selva.html" class="next-btn">Next Character</a>
+                        <a class="btn btn-lava" href="index.html">الرئيسية</a>
+                        <a class="btn btn-ghost" href="#gallery">مشاهدة الصور</a>
+                        <a class="btn btn-blue" href="selva.html">Next Character →</a>
                     </div>
                 </div>
             </div>
 
-            <div class="section" id="gallery">
-                <h2 style="margin:0 0 .5rem 0">المعرض</h2>
+            <div class="divider"></div>
+
+            <!-- Gallery -->
+            <div class="gallery-section" id="gallery">
+                <div class="section-title">المعرض</div>
                 <div class="gallery">
                     <figure class="tile large">
-                        <img src="mike%20poster.png" alt="بوستر تعريفي لـ Mikey the Cat" style="width:100%;height:100%;object-fit:cover">
+                        <img src="mike%20poster 3.JPG" alt="بوستر Mikey the Cat">
                     </figure>
                     <figure class="tile small">
-                        <img src="mike.png" alt="صورة Mikey" style="width:100%;height:100%;object-fit:cover">
+                        <img src="mike.png" alt="صورة Mikey">
                     </figure>
                 </div>
             </div>
         </section>
-        <footer>
-            <h2 style="color: var(--accent-color); margin-bottom: 10px;">Lava Axis</h2>
-            <p style="margin-bottom: 20px;">© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong>.</p>
-        </footer>
     </main>
+
+    <footer>
+        <div class="footer-logo">LAVA AXIS</div>
+        <p>© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong></p>
+    </footer>
+
+    <script>
+        // Generate ember particles
+        const container = document.getElementById('embers');
+        for (let i = 0; i < 18; i++) {
+            const e = document.createElement('div');
+            e.className = 'ember';
+            const size = Math.random() * 4 + 2;
+            e.style.cssText = `
+                width:${size}px; height:${size}px;
+                left:${Math.random() * 100}%;
+                bottom:${Math.random() * 30}%;
+                --d:${3 + Math.random() * 4}s;
+                --delay:${Math.random() * 5}s;
+                background:${Math.random() > .5 ? '#ffa400' : '#ff6a00'};
+            `;
+            container.appendChild(e);
+        }
+    </script>
 </body>
 
 </html>
