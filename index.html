@@ -166,7 +166,7 @@
       height: 34px;
       width: auto;
       object-fit: contain;
-      background: rgb(255, 255, 255);
+      background: rgba(255, 90, 31, 0.1);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 3px 8px;
@@ -220,27 +220,26 @@
       box-shadow: 0 0 10px var(--primary);
     }
 
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(72px, 10vw, 120px);
-      line-height: .9;
-      letter-spacing: 4px;
-      color: var(--text);
-      margin-bottom: 10px;
+    /* New Image Logo Styles */
+    .hero-logo-container {
+      margin-bottom: 15px;
+      max-width: 100%;
     }
 
-    .hero-title span {
-      color: var(--primary);
+    .hero-logo-img {
+      max-width: min(100%, 480px);
+      height: auto;
       display: block;
-      animation: titleGlow 3s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 18px rgba(255, 90, 31, 0.6));
+      animation: logoGlow 4s ease-in-out infinite alternate;
     }
 
-    @keyframes titleGlow {
+    @keyframes logoGlow {
       0% {
-        text-shadow: 0 0 20px rgba(255, 90, 31, 0.4);
+        filter: drop-shadow(0 0 12px rgba(255, 90, 31, 0.45));
       }
       100% {
-        text-shadow: 0 0 45px rgba(255, 90, 31, 0.9), 0 0 10px rgba(255, 90, 31, 0.5);
+        filter: drop-shadow(0 0 35px rgba(255, 90, 31, 0.95)) drop-shadow(0 0 10px rgba(255, 90, 31, 0.4));
       }
     }
 
@@ -875,10 +874,11 @@
       <div class="hero-content">
         <div class="hero-left">
           <div class="hero-eyebrow"> Fantasy · Animated Series</div>
-          <h1 class="hero-title">
-            LAVA
-            <span>AXIS</span>
-          </h1>
+          
+          <!-- Replaced LAVA AXIS text with Lava Axis 2.png image -->
+          <div class="hero-logo-container">
+            <img src="Lava Axis 2.png" alt="Lava Axis Logo" class="hero-logo-img">
+          </div>
           <div class="hero-tags">
             <span class="tag">أكشن</span>
             <span class="tag">مغامرة</span>
