@@ -918,7 +918,7 @@
           <div class="hero-eyebrow" data-i18n="hero-eyebrow"> Fantasy · Animated Series</div>
           
           <div class="hero-logo-container">
-            <img src="Lava Axis 2.png" alt="Lava Axis Logo" class="hero-logo-img">
+            <img src="Lava Axis 2.png" alt="Lava Axis Logo" class="hero-logo-img" id="hero-logo">
           </div>
 
           <div class="hero-tags">
@@ -1332,7 +1332,7 @@
         "char-selva-badge": "Héroïne",
         "char-selva-name": "Selva the Cat",
         "char-selva-meta": "18 Ans · Femelle",
-        "char-selva-desc": "Une chatte blanche qui manipule la matière et aide Mikey. Optimiste et énergétique.",
+        "char-selva-desc": "Une chatte blanche qui manipule la matière et aide Mikey. Optimiste et énergique.",
         "char-selva-link": "Voir le profil complet ←",
         "char-zanthor-badge": "Anti Héros",
         "char-zanthor-name": "Zanthor the Wolf",
@@ -1382,6 +1382,16 @@
       // Set HTML direction and lang attribute automatically
       document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
       document.documentElement.lang = (lang === 'fn') ? 'fr' : lang;
+
+      // Update the Hero Logo based on selected language (Lava Axis 2.png for Arabic, Lava Axis.png for others)
+      const logoImg = document.getElementById('hero-logo');
+      if (logoImg) {
+        if (lang === 'ar') {
+          logoImg.src = 'Lava Axis 2.png';
+        } else {
+          logoImg.src = 'Lava Axis.png';
+        }
+      }
 
       // Translate all marked elements
       document.querySelectorAll('[data-i18n]').forEach(elem => {
