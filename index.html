@@ -897,9 +897,9 @@
 
       <!-- LANGUAGE SWITCHER -->
       <div class="lang-switcher">
-        <button onclick="setLanguage('ar')" id="lang-ar" class="lang-btn active">AR</button>
-        <button onclick="setLanguage('en')" id="lang-en" class="lang-btn">EN</button>
-        <button onclick="setLanguage('fn')" id="lang-fn" class="lang-btn">FN</button>
+        <button onclick="changeLanguage('ar')" id="lang-ar" class="lang-btn active">AR</button>
+        <button onclick="changeLanguage('en')" id="lang-en" class="lang-btn">EN</button>
+        <button onclick="changeLanguage('fn')" id="lang-fn" class="lang-btn">FN</button>
       </div>
 
       <div class="nav-studios">
@@ -1332,7 +1332,7 @@
         "char-selva-badge": "Héroïne",
         "char-selva-name": "Selva the Cat",
         "char-selva-meta": "18 Ans · Femelle",
-        "char-selva-desc": "Une chatte blanche qui manipule la matière et aide Mikey. Optimiste et énergique.",
+        "char-selva-desc": "Une chatte blanche qui manipule la matière et aide Mikey. Optimiste et énergétique.",
         "char-selva-link": "Voir le profil complet ←",
         "char-zanthor-badge": "Anti Héros",
         "char-zanthor-name": "Zanthor the Wolf",
@@ -1371,6 +1371,9 @@
 
     // Global Language Toggle Handler
     function setLanguage(lang) {
+      // Normalize French keys internally
+      if (lang === 'fr') lang = 'fn';
+
       // Toggle active states on switcher buttons
       document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
       const activeBtn = document.getElementById(`lang-${lang}`);
@@ -1392,6 +1395,50 @@
           }
         }
       });
+    }
+
+    // Function to change language and sync the URL dynamically
+    function changeLanguage(lang) {
+      setLanguage(lang);
+      
+      // Update hash in URL so users can copy/share the direct link (e.g. /#en or /#fr)
+      // This is safe and never produces a 404 on Netlify
+      const displayLang = (lang === 'fn') ? 'fr' : lang;
+      window.location.hash = displayLang;
+    }
+
+    // Detect language from URL on Page Load
+    function initLanguage() {
+      // 1. Check path (e.g., lava-axis.netlify.app/en) -> fallback if Netlify redirect is active
+      const path = window.location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
+      // 2. Check hash (e.g., lava-axis.netlify.app/#en)
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      // 3. Check query parameter (e.g., lava-axis.netlify.app/?lang=en)
+      const params = new URLSearchParams(window.location.search);
+      const queryLang = params.get('lang')?.toLowerCase();
+
+      let detectedLang = 'ar'; // Default language
+
+      // Helper to map french variants and validate languages
+      const checkAndMap = (val) => {
+        if (val === 'fr' || val === 'fn') return 'fn';
+        if (['ar', 'en'].includes(val)) return val;
+        return null;
+      };
+
+      const langFromPath = checkAndMap(path);
+      const langFromHash = checkAndMap(hash);
+      const langFromQuery = checkAndMap(queryLang);
+
+      if (langFromPath) {
+        detectedLang = langFromPath;
+      } else if (langFromHash) {
+        detectedLang = langFromHash;
+      } else if (langFromQuery) {
+        detectedLang = langFromQuery;
+      }
+
+      setLanguage(detectedLang);
     }
 
     // Scroll animations observer
@@ -1505,9 +1552,14 @@
 
     window.onload = function() {
       animate();
-      // Start with default Arabic language
-      setLanguage('ar');
+      // Initialize routing and load correct language dynamically on startup
+      initLanguage();
     };
+
+    // Listen for hash changes if user navigates manually or clicks back/forward
+    window.addEventListener('hashchange', () => {
+      initLanguage();
+    });
   </script>
 
 </body>
