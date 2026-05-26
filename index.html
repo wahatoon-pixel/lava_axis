@@ -128,6 +128,7 @@
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 90, 31, 0.1);
+      gap: 15px;
     }
 
     .nav-brand {
@@ -154,6 +155,39 @@
     .nav-links a:hover {
       color: var(--primary);
       text-shadow: 0 0 10px var(--glow);
+    }
+
+    /* ===== LANGUAGE SWITCHER ===== */
+    .lang-switcher {
+      display: flex;
+      background: rgba(255, 90, 31, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .lang-btn:hover {
+      color: #fff;
+    }
+
+    .lang-btn.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 0 10px var(--glow);
     }
 
     .nav-studios {
@@ -220,7 +254,7 @@
       box-shadow: 0 0 10px var(--primary);
     }
 
-    /* New Image Logo Styles */
+    /* Image Logo Styles */
     .hero-logo-container {
       margin-bottom: 15px;
       max-width: 100%;
@@ -531,10 +565,9 @@
 
     .char-card:hover {
       transform: translateY(-8px);
-      /* Magma warming effect */
       box-shadow: 0 20px 45px rgba(255, 90, 31, 0.25), 0 0 15px rgba(255, 90, 31, 0.15);
       border-color: rgba(255, 90, 31, .45);
-      background: rgba(23, 17, 18, 0.85); /* Slightly warmer body on hover */
+      background: rgba(23, 17, 18, 0.85);
     }
 
     /* Special fiery glow for Mikey on hover */
@@ -855,11 +888,20 @@
   <nav>
     <div class="nav-inner">
       <div class="nav-brand">LAVA AXIS</div>
+      
       <div class="nav-links">
-        <a href="#story">القصة</a>
-        <a href="#characters">الشخصيات</a>
-        <a href="#production">الإنتاج</a>
+        <a href="#story" data-i18n="nav-story">القصة</a>
+        <a href="#characters" data-i18n="nav-characters">الشخصيات</a>
+        <a href="#production" data-i18n="nav-production">الإنتاج</a>
       </div>
+
+      <!-- LANGUAGE SWITCHER -->
+      <div class="lang-switcher">
+        <button onclick="setLanguage('ar')" id="lang-ar" class="lang-btn active">AR</button>
+        <button onclick="setLanguage('en')" id="lang-en" class="lang-btn">EN</button>
+        <button onclick="setLanguage('fn')" id="lang-fn" class="lang-btn">FN</button>
+      </div>
+
       <div class="nav-studios">
         <a href="https://aura-animation.netlify.app/" target="_blank">
           <img src="Arua.png" alt="Aura Studio">
@@ -873,26 +915,28 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-left">
-          <div class="hero-eyebrow"> Fantasy · Animated Series</div>
+          <div class="hero-eyebrow" data-i18n="hero-eyebrow"> Fantasy · Animated Series</div>
           
-          <!-- Replaced LAVA AXIS text with Lava Axis 2.png image -->
           <div class="hero-logo-container">
             <img src="Lava Axis 2.png" alt="Lava Axis Logo" class="hero-logo-img">
           </div>
+
           <div class="hero-tags">
-            <span class="tag">أكشن</span>
-            <span class="tag">مغامرة</span>
-            <span class="tag">فانتزيا</span>
-            <span class="tag">كوميدي</span>
-            <span class="tag">خيال</span>
+            <span class="tag" data-i18n="tag-action">أكشن</span>
+            <span class="tag" data-i18n="tag-adventure">مغامرة</span>
+            <span class="tag" data-i18n="tag-fantasy">فانتزيا</span>
+            <span class="tag" data-i18n="tag-comedy">كوميدي</span>
+            <span class="tag" data-i18n="tag-scifi">خيال</span>
           </div>
-          <p class="hero-subtitle">عالم يجمع البشر والحيوانات والمخلوقات الغريبة. قط برتقالي يحمل قوة الحمم البركانية —
-            والمدينة تحتاجه.</p>
+          
+          <p class="hero-subtitle" data-i18n="hero-subtitle">عالم يجمع البشر والحيوانات والمخلوقات الغريبة. قط برتقالي يحمل قوة الحمم البركانية — والمدينة تحتاجه.</p>
+          
           <div class="hero-actions">
-            <a href="#characters" class="btn-primary">اكتشف الشخصيات</a>
-            <a href="#story" class="btn-ghost">ملخص القصة</a>
+            <a href="#characters" class="btn-primary" data-i18n="btn-discover">اكتشف الشخصيات</a>
+            <a href="#story" class="btn-ghost" data-i18n="btn-story">ملخص القصة</a>
           </div>
         </div>
+        
         <div class="hero-poster">
           <img src="poster.png" alt="Lava Axis Poster">
         </div>
@@ -907,15 +951,13 @@
     <div class="container">
       <div class="story-grid">
         <div class="story-text fade-up">
-          <div class="section-label">الملخص</div>
-          <h2 class="section-title">القصة</h2>
-          <p>
-            تدور أحداث <strong>Lava Axis</strong> حول "مايكي"، قط برتقالي يعيش في مدينة تجمع بين البشر والحيوانات
-            والمخلوقات الغريبة، في عالم خيالي مليء بالعجائب والتحديات.
+          <div class="section-label" data-i18n="story-label">الملخص</div>
+          <h2 class="section-title" data-i18n="story-title">القصة</h2>
+          <p data-i18n="story-p1">
+            تدور أحداث <strong>Lava Axis</strong> حول "مايكي"، قط برتقالي يعيش في مدينة تجمع بين البشر والحيوانات والمخلوقات الغريبة، في عالم خيالي مليء بالعجائب والتحديات.
           </p>
-          <p>
-            مايكي يتمتع بقدرة فريدة على إخراج الحمم البركانية من جسده، ويستخدم هذه القوة لحماية المدينة والعالم من قوى
-            الشر التي تتهدد كل شيء.
+          <p data-i18n="story-p2">
+            مايكي يتمتع بقدرة فريدة على إخراج الحمم البركانية من جسده، ويستخدم هذه القوة لحماية المدينة والعالم من قوى الشر التي تتهدد كل شيء.
           </p>
         </div>
       </div>
@@ -928,9 +970,9 @@
   <section class="section" id="characters">
     <div class="container">
       <div class="section-header fade-up">
-        <div class="section-label">الأبطال والأشرار</div>
-        <h2 class="section-title">الشخصيات</h2>
-        <p class="section-desc">كل شخصية لها قوة فريدة وقصة تستحق أن تُروى.</p>
+        <div class="section-label" data-i18n="char-label">الأبطال والأشرار</div>
+        <h2 class="section-title" data-i18n="char-title">الشخصيات</h2>
+        <p class="section-desc" data-i18n="char-desc">كل شخصية لها قوة فريدة وقصة تستحق أن تُروى.</p>
       </div>
 
       <div class="characters-grid">
@@ -939,13 +981,13 @@
         <a href="Mikey.html" class="char-card fade-up">
           <div class="char-img-wrap">
             <img src="mike.png" alt="Mikey the Cat">
-            <span class="char-role-badge badge-hero">بطل رئيسي</span>
+            <span class="char-role-badge badge-hero" data-i18n="char-mikey-badge">بطل رئيسي</span>
           </div>
           <div class="char-info">
-            <div class="char-name">Mikey the Cat</div>
-            <div class="char-meta">18 عامًا · ذكر</div>
-            <div class="char-desc">قط برتقالي يخرج الحمم البركانية من جسده. متسرع ويحب المغامرة.</div>
-            <span class="char-link">عرض الملف الكامل ←</span>
+            <div class="char-name" data-i18n="char-mikey-name">Mikey the Cat</div>
+            <div class="char-meta" data-i18n="char-mikey-meta">18 عامًا · ذكر</div>
+            <div class="char-desc" data-i18n="char-mikey-desc">قط برتقالي يخرج الحمم البركانية من جسده. متسرع ويحب المغامرة.</div>
+            <span class="char-link" data-i18n="char-mikey-link">عرض الملف الكامل ←</span>
           </div>
         </a>
 
@@ -953,13 +995,13 @@
         <a href="Ego.html" class="char-card fade-up">
           <div class="char-img-wrap">
             <img src="Ego 2.png" alt="Ego the Bird">
-            <span class="char-role-badge badge-hero">بطل ثانوي</span>
+            <span class="char-role-badge badge-hero" data-i18n="char-ego-badge">بطل ثانوي</span>
           </div>
           <div class="char-info">
-            <div class="char-name">Ego the Bird</div>
-            <div class="char-meta">18 عامًا · ذكر</div>
-            <div class="char-desc">عصفور أزرق لديه قوى الثلج. نحيف، طويل، مغرور وذكي جداً.</div>
-            <span class="char-link">عرض الملف الكامل ←</span>
+            <div class="char-name" data-i18n="char-ego-name">Ego the Bird</div>
+            <div class="char-meta" data-i18n="char-ego-meta">18 عامًا · ذكر</div>
+            <div class="char-desc" data-i18n="char-ego-desc">عصفور أزرق لديه قوى الثلج. نحيف، طويل، مغرور وذكي جداً.</div>
+            <span class="char-link" data-i18n="char-ego-link">عرض الملف الكامل ←</span>
           </div>
         </a>
 
@@ -967,13 +1009,13 @@
         <a href="selva.html" class="char-card fade-up">
           <div class="char-img-wrap">
             <img src="selva1.png" alt="Selva the Cat">
-            <span class="char-role-badge badge-hero">بطلة</span>
+            <span class="char-role-badge badge-hero" data-i18n="char-selva-badge">بطلة</span>
           </div>
           <div class="char-info">
-            <div class="char-name">Selva the Cat</div>
-            <div class="char-meta">18 عامًا · أنثى</div>
-            <div class="char-desc">قطة بيضاء تسخر المادة وتساعد مايكي. متفائلة ومليئة بالحيوية.</div>
-            <span class="char-link">عرض الملف الكامل ←</span>
+            <div class="char-name" data-i18n="char-selva-name">Selva the Cat</div>
+            <div class="char-meta" data-i18n="char-selva-meta">18 عامًا · أنثى</div>
+            <div class="char-desc" data-i18n="char-selva-desc">قطة بيضاء تسخر المادة وتساعد مايكي. متفائلة ومليئة بالحيوية.</div>
+            <span class="char-link" data-i18n="char-selva-link">عرض الملف الكامل ←</span>
           </div>
         </a>
 
@@ -981,12 +1023,12 @@
         <div class="char-card fade-up">
           <div class="char-img-wrap">
             <img src="Zanthor.png" alt="Zanthor the Wolf">
-            <span class="char-role-badge badge-anti">Anti Hero</span>
+            <span class="char-role-badge badge-anti" data-i18n="char-zanthor-badge">Anti Hero</span>
           </div>
           <div class="char-info">
-            <div class="char-name">Zanthor the Wolf</div>
-            <div class="char-meta">25 عامًا · ذكر</div>
-            <div class="char-desc">مقاتل قديم، قوي وذكي. تربطه أسطورة مع أخيه.</div>
+            <div class="char-name" data-i18n="char-zanthor-name">Zanthor the Wolf</div>
+            <div class="char-meta" data-i18n="char-zanthor-meta">25 عامًا · ذكر</div>
+            <div class="char-desc" data-i18n="char-zanthor-desc">مقاتل قديم، قوي وذكي. تربطه أسطورة مع أخيه.</div>
           </div>
         </div>
 
@@ -994,12 +1036,12 @@
         <div class="char-card fade-up">
           <div class="char-img-wrap">
             <img src="Valcon.png" alt="Valcon the Owl">
-            <span class="char-role-badge badge-villain">شرير</span>
+            <span class="char-role-badge badge-villain" data-i18n="char-valcon-badge">شرير</span>
           </div>
           <div class="char-info">
-            <div class="char-name">Valcon the Owl</div>
-            <div class="char-meta">30 عامًا · ذكر</div>
-            <div class="char-desc">بوم عبقري شرير بخطط دقيقة. لديه قوة عضلية غير متوقعة.</div>
+            <div class="char-name" data-i18n="char-valcon-name">Valcon the Owl</div>
+            <div class="char-meta" data-i18n="char-valcon-meta">30 عامًا · ذكر</div>
+            <div class="char-desc" data-i18n="char-valcon-desc">بوم عبقري شرير بخطط دقيقة. لديه قوة عضلية غير متوقعة.</div>
           </div>
         </div>
 
@@ -1007,12 +1049,12 @@
         <div class="char-card fade-up">
           <div class="char-img-wrap">
             <img src="Firn.png" alt="Firn the Water">
-            <span class="char-role-badge badge-support">داعم</span>
+            <span class="char-role-badge badge-support" data-i18n="char-firn-badge">داعم</span>
           </div>
           <div class="char-info">
-            <div class="char-name">Firn the Water</div>
-            <div class="char-meta">18 عامًا · ذكر</div>
-            <div class="char-desc">أمير مملكة الماء، حكيم وهادئ. يتحكم بالماء ويستطيع التضخم.</div>
+            <div class="char-name" data-i18n="char-firn-name">Firn the Water</div>
+            <div class="char-meta" data-i18n="char-firn-meta">18 عامًا · ذكر</div>
+            <div class="char-desc" data-i18n="char-firn-desc">أمير مملكة الماء، حكيم وهادئ. يتحكم بالماء ويستطيع التضخم.</div>
           </div>
         </div>
 
@@ -1020,12 +1062,12 @@
         <div class="char-card fade-up">
           <div class="char-img-wrap">
             <img src="Pyra 2.png" alt="Pyra the Fire">
-            <span class="char-role-badge badge-support">داعم</span>
+            <span class="char-role-badge badge-support" data-i18n="char-pyra-badge">داعم</span>
           </div>
           <div class="char-info">
-            <div class="char-name">Pyra the Fire</div>
-            <div class="char-meta">26 عامًا · أنثى</div>
-            <div class="char-desc">ملكة النار، شخصية نارية ومندفعة. تمثل العنصر الناري النقي.</div>
+            <div class="char-name" data-i18n="char-pyra-name">Pyra the Fire</div>
+            <div class="char-meta" data-i18n="char-pyra-meta">26 عامًا · أنثى</div>
+            <div class="char-desc" data-i18n="char-pyra-desc">ملكة النار، شخصية نارية ومندفعة. تمثل العنصر الناري النقي.</div>
           </div>
         </div>
 
@@ -1033,12 +1075,12 @@
         <div class="char-card fade-up">
           <div class="char-img-wrap">
             <img src="Ziron.png" alt="Ziron the Wolf">
-            <span class="char-role-badge badge-villain">شرير</span>
+            <span class="char-role-badge badge-villain" data-i18n="char-ziron-badge">شرير</span>
           </div>
           <div class="char-info">
-            <div class="char-name">Ziron the Wolf</div>
-            <div class="char-meta">آلاف السنين · ذكر</div>
-            <div class="char-desc">توأم زانثور، ذكي وشرير. شرب عقاراً ليبقى حياً إلى الأبد.</div>
+            <div class="char-name" data-i18n="char-ziron-name">Ziron the Wolf</div>
+            <div class="char-meta" data-i18n="char-ziron-meta">آلاف السنين · ذكر</div>
+            <div class="char-desc" data-i18n="char-ziron-desc">توأم زانثور، ذكي وشرير. شرب عقاراً ليبقى حياً إلى الأبد.</div>
           </div>
         </div>
 
@@ -1052,39 +1094,39 @@
   <section class="section" id="production">
     <div class="container">
       <div class="section-header fade-up">
-        <div class="section-label">فريق العمل</div>
-        <h2 class="section-title">الإنتاج</h2>
+        <div class="section-label" data-i18n="prod-label">فريق العمل</div>
+        <h2 class="section-title" data-i18n="prod-title">الإنتاج</h2>
       </div>
 
       <div class="production-grid">
         <div class="prod-card fade-up">
-          <div class="prod-label">الفريق الإبداعي</div>
+          <div class="prod-label" data-i18n="prod-creative">الفريق الإبداعي</div>
           <div class="prod-row">
             <div class="prod-item">
-              <span class="prod-role">المؤلف</span>
+              <span class="prod-role" data-i18n="prod-role-author">المؤلف</span>
               <span class="prod-name">Rabbit & Mohammed Amin</span>
             </div>
             <div class="prod-item">
-              <span class="prod-role">المخرج</span>
+              <span class="prod-role" data-i18n="prod-role-director">المخرج</span>
               <span class="prod-name">Mohammed Amin & Nyuyaki</span>
             </div>
           </div>
         </div>
 
         <div class="prod-card fade-up">
-          <div class="prod-label">تفاصيل المشروع</div>
+          <div class="prod-label" data-i18n="prod-details">تفاصيل المشروع</div>
           <div class="prod-row">
             <div class="prod-item">
-              <span class="prod-role">الاستوديو</span>
+              <span class="prod-role" data-i18n="prod-role-studio">الاستوديو</span>
               <span class="prod-name">AURA Animation</span>
             </div>
             <div class="prod-item">
-              <span class="prod-role">سنة الإصدار</span>
+              <span class="prod-role" data-i18n="prod-role-year">سنة الإصدار</span>
               <span class="prod-name">2026 – 2027</span>
             </div>
             <div class="prod-item">
-              <span class="prod-role">عدد الحلقات</span>
-              <span class="prod-name">لم يُعلن بعد</span>
+              <span class="prod-role" data-i18n="prod-role-episodes">عدد الحلقات</span>
+              <span class="prod-name" data-i18n="prod-val-episodes">لم يُعلن بعد</span>
             </div>
           </div>
         </div>
@@ -1097,8 +1139,8 @@
     <div class="container">
       <div class="footer-inner">
         <div>
-          <div class="footer-brand">LAVA AXIS</div>
-          <div class="footer-copy">© 2025 جميع الحقوق محفوظة لـ Aura</div>
+          <div class="footer-brand" data-i18n="footer-brand">LAVA AXIS</div>
+          <div class="footer-copy" data-i18n="footer-copy">© 2025 جميع الحقوق محفوظة لـ Aura</div>
         </div>
         <div class="social-links">
           <a href="https://www.instagram.com/animaster_channel/" target="_blank">
@@ -1119,6 +1161,239 @@
   </footer>
 
   <script>
+    // ===== TRANSLATION DATA =====
+    const translations = {
+      ar: {
+        "nav-story": "القصة",
+        "nav-characters": "الشخصيات",
+        "nav-production": "الإنتاج",
+        "hero-eyebrow": "Fantasy · Animated Series",
+        "tag-action": "أكشن",
+        "tag-adventure": "مغامرة",
+        "tag-fantasy": "فانتزيا",
+        "tag-comedy": "كوميدي",
+        "tag-scifi": "خيال",
+        "hero-subtitle": "عالم يجمع البشر والحيوانات والمخلوقات الغريبة. قط برتقالي يحمل قوة الحمم البركانية — والمدينة تحتاجه.",
+        "btn-discover": "اكتشف الشخصيات",
+        "btn-story": "ملخص القصة",
+        "story-label": "الملخص",
+        "story-title": "القصة",
+        "story-p1": "تدور أحداث <strong>Lava Axis</strong> حول \"مايكي\"، قط برتقالي يعيش في مدينة تجمع بين البشر والحيوانات والمخلوقات الغريبة، في عالم خيالي مليء بالعجائب والتحديات.",
+        "story-p2": "مايكي يتمتع بقدرة فريدة على إخراج الحمم البركانية من جسده، ويستخدم هذه القوة لحماية المدينة والعالم من قوى الشر التي تتهدد كل شيء.",
+        "char-label": "الأبطال والأشرار",
+        "char-title": "الشخصيات",
+        "char-desc": "كل شخصية لها قوة فريدة وقصة تستحق أن تُروى.",
+        "char-mikey-badge": "بطل رئيسي",
+        "char-mikey-name": "Mikey the Cat",
+        "char-mikey-meta": "18 عامًا · ذكر",
+        "char-mikey-desc": "قط برتقالي يخرج الحمم البركانية من جسده. متسرع ويحب المغامرة.",
+        "char-mikey-link": "عرض الملف الكامل ←",
+        "char-ego-badge": "بطل ثانوي",
+        "char-ego-name": "Ego the Bird",
+        "char-ego-meta": "18 عامًا · ذكر",
+        "char-ego-desc": "عصفور أزرق لديه قوى الثلج. نحيف، طويل، مغرور وذكي جداً.",
+        "char-ego-link": "عرض الملف الكامل ←",
+        "char-selva-badge": "بطلة",
+        "char-selva-name": "Selva the Cat",
+        "char-selva-meta": "18 عامًا · أنثى",
+        "char-selva-desc": "قطة بيضاء تسخر المادة وتساعد مايكي. متفائلة ومليئة بالحيوية.",
+        "char-selva-link": "عرض الملف الكامل ←",
+        "char-zanthor-badge": "Anti Hero",
+        "char-zanthor-name": "Zanthor the Wolf",
+        "char-zanthor-meta": "25 عامًا · ذكر",
+        "char-zanthor-desc": "مقاتل قديم، قوي وذكي. تربطه أسطورة مع أخيه.",
+        "char-valcon-badge": "شرير",
+        "char-valcon-name": "Valcon the Owl",
+        "char-valcon-meta": "30 عامًا · ذكر",
+        "char-valcon-desc": "بوم عبقري شرير بخطط دقيقة. لديه قوة عضلية غير متوقعة.",
+        "char-firn-badge": "داعم",
+        "char-firn-name": "Firn the Water",
+        "char-firn-meta": "18 عامًا · ذكر",
+        "char-firn-desc": "أمير مملكة الماء، حكيم وهادئ. يتحكم بالماء ويستطيع التضخم.",
+        "char-pyra-badge": "داعم",
+        "char-pyra-name": "Pyra the Fire",
+        "char-pyra-meta": "26 عامًا · أنثى",
+        "char-pyra-desc": "ملكة النار، شخصية نارية ومندفعة. تمثل العنصر الناري النقي.",
+        "char-ziron-badge": "شرير",
+        "char-ziron-name": "Ziron the Wolf",
+        "char-ziron-meta": "آلاف السنين · ذكر",
+        "char-ziron-desc": "توأم زانثور، ذكي وشرير. شرب عقاراً ليبقى حياً إلى الأبد.",
+        "prod-label": "فريق العمل",
+        "prod-title": "الإنتاج",
+        "prod-creative": "الفريق الإبداعي",
+        "prod-role-author": "المؤلف",
+        "prod-role-director": "المخرج",
+        "prod-details": "تفاصيل المشروع",
+        "prod-role-studio": "الاستوديو",
+        "prod-role-year": "سنة الإصدار",
+        "prod-role-episodes": "عدد الحلقات",
+        "prod-val-episodes": "لم يُعلن بعد",
+        "footer-brand": "LAVA AXIS",
+        "footer-copy": "© 2025 جميع الحقوق محفوظة لـ Aura"
+      },
+      en: {
+        "nav-story": "Story",
+        "nav-characters": "Characters",
+        "nav-production": "Production",
+        "hero-eyebrow": "Fantasy · Animated Series",
+        "tag-action": "Action",
+        "tag-adventure": "Adventure",
+        "tag-fantasy": "Fantasy",
+        "tag-comedy": "Comedy",
+        "tag-scifi": "Sci-Fi",
+        "hero-subtitle": "A world where humans, animals, and strange creatures coexist. An orange cat with the power of volcanic lava — and the city needs him.",
+        "btn-discover": "Discover Characters",
+        "btn-story": "Story Summary",
+        "story-label": "Summary",
+        "story-title": "The Story",
+        "story-p1": "<strong>Lava Axis</strong> revolves around \"Mikey\", an orange cat living in a city that brings together humans, animals, and strange creatures, in a fantasy world full of wonders and challenges.",
+        "story-p2": "Mikey possesses a unique ability to emit volcanic lava from his body, using this power to protect the city and the world from the forces of evil that threaten everything.",
+        "char-label": "Heroes & Villains",
+        "char-title": "Characters",
+        "char-desc": "Each character has a unique power and a story worth telling.",
+        "char-mikey-badge": "Main Hero",
+        "char-mikey-name": "Mikey the Cat",
+        "char-mikey-meta": "18 Years · Male",
+        "char-mikey-desc": "An orange cat who can emit volcanic lava from his body. Impulsive and loves adventure.",
+        "char-mikey-link": "View Full Profile ←",
+        "char-ego-badge": "Side Hero",
+        "char-ego-name": "Ego the Bird",
+        "char-ego-meta": "18 Years · Male",
+        "char-ego-desc": "A blue bird with ice powers. Slim, tall, arrogant, and highly intelligent.",
+        "char-ego-link": "View Full Profile ←",
+        "char-selva-badge": "Heroine",
+        "char-selva-name": "Selva the Cat",
+        "char-selva-meta": "18 Years · Female",
+        "char-selva-desc": "A white cat who manipulates matter and helps Mikey. Optimistic and full of energy.",
+        "char-selva-link": "View Full Profile ←",
+        "char-zanthor-badge": "Anti Hero",
+        "char-zanthor-name": "Zanthor the Wolf",
+        "char-zanthor-meta": "25 Years · Male",
+        "char-zanthor-desc": "An ancient warrior, strong and smart. Connected to his brother by a legend.",
+        "char-valcon-badge": "Villain",
+        "char-valcon-name": "Valcon the Owl",
+        "char-valcon-meta": "30 Years · Male",
+        "char-valcon-desc": "An evil genius owl with meticulous plans. Possesses unexpected physical strength.",
+        "char-firn-badge": "Support",
+        "char-firn-name": "Firn the Water",
+        "char-firn-meta": "18 Years · Male",
+        "char-firn-desc": "Prince of the Water Kingdom, wise and calm. Controls water and can expand in size.",
+        "char-pyra-badge": "Support",
+        "char-pyra-name": "Pyra the Fire",
+        "char-pyra-meta": "26 Years · Female",
+        "char-pyra-desc": "Queen of Fire, fiery and impulsive personality. Represents the pure fire element.",
+        "char-ziron-badge": "Villain",
+        "char-ziron-name": "Ziron the Wolf",
+        "char-ziron-meta": "Thousands of Years · Male",
+        "char-ziron-desc": "Zanthor's twin, smart and evil. Drank a potion to stay alive forever.",
+        "prod-label": "Creative Team",
+        "prod-title": "Production",
+        "prod-creative": "Creative Team",
+        "prod-role-author": "Author",
+        "prod-role-director": "Director",
+        "prod-details": "Project Details",
+        "prod-role-studio": "Studio",
+        "prod-role-year": "Release Year",
+        "prod-role-episodes": "Episodes",
+        "prod-val-episodes": "To Be Announced",
+        "footer-brand": "LAVA AXIS",
+        "footer-copy": "© 2025 All rights reserved to Aura"
+      },
+      fn: {
+        "nav-story": "Histoire",
+        "nav-characters": "Personnages",
+        "nav-production": "Production",
+        "hero-eyebrow": "Fantaisie · Série Animée",
+        "tag-action": "Action",
+        "tag-adventure": "Aventure",
+        "tag-fantasy": "Fantaisie",
+        "tag-comedy": "Comédie",
+        "tag-scifi": "Sci-Fi",
+        "hero-subtitle": "Un monde où coexistent humains, animaux et créatures étranges. Un chat orange doté du pouvoir de la lave volcanique — et la ville a besoin de lui.",
+        "btn-discover": "Découvrir les Personnages",
+        "btn-story": "Résumé de l'Histoire",
+        "story-label": "Résumé",
+        "story-title": "L'Histoire",
+        "story-p1": "<strong>Lava Axis</strong> tourne autour de \"Mikey\", un chat orange vivant dans une ville qui rassemble humains, animaux et créatures étranges, dans un monde fantastique plein de merveilles et de défis.",
+        "story-p2": "Mikey possède une capacité unique à émettre de la lave volcanique de son corps, utilisant ce pouvoir pour protéger la ville et le monde des forces du mal qui menacent tout.",
+        "char-label": "Héros & Vilains",
+        "char-title": "Personnages",
+        "char-desc": "Chaque personnage a un pouvoir unique et une histoire qui mérite d'être racontée.",
+        "char-mikey-badge": "Héros Principal",
+        "char-mikey-name": "Mikey the Cat",
+        "char-mikey-meta": "18 Ans · Mâle",
+        "char-mikey-desc": "Un chat orange qui émet de la lave de son corps. Impulsif et adore l'aventure.",
+        "char-mikey-link": "Voir le profil complet ←",
+        "char-ego-badge": "Héros Secondaire",
+        "char-ego-name": "Ego the Bird",
+        "char-ego-meta": "18 Ans · Mâle",
+        "char-ego-desc": "Un oiseau bleu doté de pouvoirs de glace. Mince, grand, arrogant et très intelligent.",
+        "char-ego-link": "Voir le profil complet ←",
+        "char-selva-badge": "Héroïne",
+        "char-selva-name": "Selva the Cat",
+        "char-selva-meta": "18 Ans · Femelle",
+        "char-selva-desc": "Une chatte blanche qui manipule la matière et aide Mikey. Optimiste et énergique.",
+        "char-selva-link": "Voir le profil complet ←",
+        "char-zanthor-badge": "Anti Héros",
+        "char-zanthor-name": "Zanthor the Wolf",
+        "char-zanthor-meta": "25 Ans · Mâle",
+        "char-zanthor-desc": "Un ancien guerrier, fort et intelligent. Lié à son frère par une légende.",
+        "char-valcon-badge": "Vilain",
+        "char-valcon-name": "Valcon the Owl",
+        "char-valcon-meta": "30 Ans · Mâle",
+        "char-valcon-desc": "Un hibou génie du mal aux plans méticuleux. Force physique inattendue.",
+        "char-firn-badge": "Soutien",
+        "char-firn-name": "Firn the Water",
+        "char-firn-meta": "18 Ans · Mâle",
+        "char-firn-desc": "Prince du Royaume de l'Eau, sage et calme. Contrôle l'eau et peut s'agrandir.",
+        "char-pyra-badge": "Soutien",
+        "char-pyra-name": "Pyra the Fire",
+        "char-pyra-meta": "26 Ans · Femelle",
+        "char-pyra-desc": "Reine du Feu, personnalité ardente et impulsive. Représente l'élément de feu pur.",
+        "char-ziron-badge": "Vilain",
+        "char-ziron-name": "Ziron the Wolf",
+        "char-ziron-meta": "Millénaires · Mâle",
+        "char-ziron-desc": "Le jumeau de Zanthor, intelligent et machiavélique. A bu un élixir d'immortalité.",
+        "prod-label": "Équipe Créative",
+        "prod-title": "Production",
+        "prod-creative": "Équipe Créative",
+        "prod-role-author": "Auteur",
+        "prod-role-director": "Réalisateur",
+        "prod-details": "Détails du Projet",
+        "prod-role-studio": "Studio",
+        "prod-role-year": "Année de Sortie",
+        "prod-role-episodes": "Épisodes",
+        "prod-val-episodes": "À annoncer",
+        "footer-brand": "LAVA AXIS",
+        "footer-copy": "© 2025 Tous droits réservés à Aura"
+      }
+    };
+
+    // Global Language Toggle Handler
+    function setLanguage(lang) {
+      // Toggle active states on switcher buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`lang-${lang}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      // Set HTML direction and lang attribute automatically
+      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+      document.documentElement.lang = (lang === 'fn') ? 'fr' : lang;
+
+      // Translate all marked elements
+      document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          // If translation has HTML tags (like <strong>), render as innerHTML
+          if (translations[lang][key].includes('<strong') || translations[lang][key].includes('<span')) {
+            elem.innerHTML = translations[lang][key];
+          } else {
+            elem.textContent = translations[lang][key];
+          }
+        }
+      });
+    }
+
     // Scroll animations observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -1137,7 +1412,6 @@
     const canvas = document.getElementById('globalEmbersCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Make canvas size match viewport size dynamically
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
 
@@ -1147,13 +1421,11 @@
     });
 
     const particles = [];
-    // Increased particle count since it covers the entire website background now
     const maxParticles = 110;
 
     class EmberParticle {
       constructor() {
         this.reset();
-        // Distribute initially across the full screen height
         this.y = Math.random() * height;
       }
 
@@ -1165,7 +1437,6 @@
         this.speedY = -(Math.random() * 1.8 + 0.8);
         this.alpha = 1;
         this.decay = Math.random() * 0.006 + 0.002;
-        // Ember tones: vibrant orange, hot yellow, deep magma red
         const colors = [
           'rgba(255, 90, 31, ',
           'rgba(255, 140, 0, ',
@@ -1180,7 +1451,6 @@
         this.y += this.speedY;
         this.alpha -= this.decay;
 
-        // Interactive mouse push
         if (mouse.x !== null && mouse.y !== null) {
           const dx = this.x - mouse.x;
           const dy = this.y - mouse.y;
@@ -1191,7 +1461,6 @@
           }
         }
 
-        // Reset if transparent or drifted out of frame
         if (this.alpha <= 0 || this.y < -10) {
           this.reset();
         }
@@ -1207,12 +1476,10 @@
       }
     }
 
-    // Initialize global particles
     for (let i = 0; i < maxParticles; i++) {
       particles.push(new EmberParticle());
     }
 
-    // Global Mouse position tracker
     const mouse = { x: null, y: null };
     
     window.addEventListener('mousemove', (e) => {
@@ -1227,7 +1494,7 @@
 
     function animate() {
       ctx.clearRect(0, 0, width, height);
-      ctx.shadowBlur = 0; // Clear shadow cache for fluid rendering
+      ctx.shadowBlur = 0;
       
       for (let i = 0; i < particles.length; i++) {
         particles[i].update(mouse);
@@ -1238,6 +1505,8 @@
 
     window.onload = function() {
       animate();
+      // Start with default Arabic language
+      setLanguage('ar');
     };
   </script>
 
