@@ -2,6 +2,17 @@
 <html lang="ar" dir="rtl">
 
 <head>
+    <script>
+        // Set theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Set direction and lang attributes early to prevent layout shift
+        const savedLang = localStorage.getItem('lang') || 'ar';
+        const displayLang = (savedLang === 'fn') ? 'fr' : savedLang;
+        document.documentElement.dir = (savedLang === 'ar') ? 'rtl' : 'ltr';
+        document.documentElement.lang = displayLang;
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ego the Bird | ايجو ذا الطائر</title>
@@ -19,6 +30,18 @@
             --text: #e8f7ff;
             --muted: #88cce8;
             --card-border: rgba(100, 200, 255, 0.2);
+        }
+
+        html[data-theme="light"] {
+            --bg1: #eef6fa;
+            --bg2: #dbeaf5;
+            --text: #0b2538;
+            --muted: #446580;
+            --ice1: #1a8cc4;
+            --ice2: #1579a8;
+            --ice3: #0c577d;
+            --ice4: #094766;
+            --card-border: rgba(30, 140, 220, 0.25);
         }
 
         * {
@@ -529,19 +552,204 @@
             position: relative;
             z-index: 1;
         }
+
+        /* ===== LIGHT THEME SPECIFIC OVERRIDES ===== */
+        html[data-theme="light"] body {
+            background: var(--bg2);
+        }
+        html[data-theme="light"] body::before {
+            background:
+                radial-gradient(ellipse 70% 50% at 15% 15%, rgba(30, 140, 220, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 55% 70% at 85% 75%, rgba(0, 100, 180, 0.08) 0%, transparent 55%),
+                radial-gradient(ellipse 45% 45% at 50% 50%, rgba(100, 200, 255, 0.05) 0%, transparent 50%);
+        }
+        html[data-theme="light"] .header-overlay {
+            background: linear-gradient(to top,
+                    var(--bg2) 0%,
+                    rgba(219, 234, 245, 0.75) 40%,
+                    rgba(219, 234, 245, 0.15) 100%);
+        }
+        html[data-theme="light"] h1 {
+            background: linear-gradient(135deg, #0b2538 30%, var(--ice1) 65%, var(--ice3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        html[data-theme="light"] .card {
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.8), rgba(219, 234, 245, 0.6));
+            border-color: rgba(30, 140, 220, 0.22);
+            box-shadow: 0 20px 50px rgba(30, 100, 150, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+        }
+        html[data-theme="light"] .card::after {
+            background: url("data:image/svg+xml,%3Csvg width='400' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 L80 60 L40 80 L100 150 L60 170 M350 0 L320 55 L360 85 L300 160' stroke='rgba(30,140,220,0.06)' stroke-width='1' fill='none'/%3E%3C/svg%3E") center/cover;
+        }
+        html[data-theme="light"] .stat-card {
+            background: rgba(0, 120, 200, 0.06);
+        }
+        html[data-theme="light"] .avatar-wrap::before {
+            opacity: 0.35;
+        }
+        html[data-theme="light"] .btn-ghost {
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        html[data-theme="light"] .tile {
+            background: #fff;
+            border-color: rgba(30, 140, 220, 0.15);
+        }
+        html[data-theme="light"] .profile-name {
+            color: var(--text);
+        }
+        html[data-theme="light"] .btn-ghost:hover {
+            background: rgba(0, 0, 0, 0.08);
+            color: var(--ice1);
+        }
+
+        /* ===== FLOATING THEME SWITCHER BUTTON ===== */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+            background: rgba(0, 120, 200, 0.15);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ice1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            transition: all 0.25s ease;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.08);
+            background: rgba(0, 120, 200, 0.25);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+            color: #fff;
+        }
+        html[data-theme="light"] .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--ice1);
+            box-shadow: 0 4px 16px rgba(0, 50, 100, 0.08);
+        }
+        html[data-theme="light"] .theme-toggle-btn:hover {
+            background: #fff;
+            color: var(--ice3);
+        }
+        .theme-toggle-btn .sun-icon {
+            display: none;
+        }
+        .theme-toggle-btn .moon-icon {
+            display: block;
+        }
+        html[data-theme="light"] .theme-toggle-btn .sun-icon {
+            display: block;
+        }
+        html[data-theme="light"] .theme-toggle-btn .moon-icon {
+            display: none;
+        }
+
+        /* Floating Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            background: rgba(0, 120, 200, 0.15);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 3px;
+            gap: 3px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            transition: all 0.25s ease;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .lang-btn:hover {
+            color: #fff;
+        }
+
+        .lang-btn.active {
+            background: var(--ice2);
+            color: #fff;
+        }
+
+        html[data-theme="light"] .lang-switcher {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 16px rgba(0, 50, 100, 0.08);
+        }
+
+        html[data-theme="light"] .lang-btn {
+            color: var(--muted);
+        }
+
+        html[data-theme="light"] .lang-btn:hover {
+            color: var(--ice1);
+        }
+
+        html[data-theme="light"] .lang-btn.active {
+            background: var(--ice1);
+            color: #fff;
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- Floating Theme Toggle -->
+    <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle Theme" id="theme-toggle">
+        <svg class="theme-icon moon-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="theme-icon sun-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+
+    <!-- Floating Language Switcher -->
+    <div class="lang-switcher">
+        <button onclick="changeLanguage('ar')" id="lang-ar" class="lang-btn active">AR</button>
+        <button onclick="changeLanguage('en')" id="lang-en" class="lang-btn">EN</button>
+        <button onclick="changeLanguage('fn')" id="lang-fn" class="lang-btn">FN</button>
+    </div>
 
     <header>
         <div class="header-bg"></div>
         <div class="header-overlay"></div>
         <div class="crystals" id="crystals"></div>
         <div class="header-content">
-            <div class="brand-tag">Lava Axis • شخصيات</div>
+            <div class="brand-tag" data-i18n="brand-pill">Lava Axis • شخصيات</div>
             <h1>Ego the Bird</h1>
-            <p class="subtitle">عصفور أزرق لديه قوى الثلج&nbsp;•&nbsp;مغرور وذكي جدًا</p>
+            <p class="subtitle" data-i18n="page-subtitle">عصفور أزرق لديه قوى الثلج • مغرور وذكي جدًا</p>
         </div>
     </header>
 
@@ -556,23 +764,23 @@
                     </div>
                 </div>
                 <div>
-                    <span class="role-badge">Deuteragonist</span>
+                    <span class="role-badge" data-i18n="role-badge">Deuteragonist</span>
                     <div class="profile-name">Ego the Bird</div>
-                    <p class="profile-bio">
+                    <p class="profile-bio" data-i18n="profile-bio">
                         ايجو عصفور أزرق يمتلك قدرة إطلاق قوى الثلج الهائلة. نحيف، طويل، وشديد الثقة بنفسه —
                         يرى نفسه الأذكى في أي غرفة يدخلها، وغالبًا ما يكون محقًا.
                     </p>
                     <div class="chips">
-                        <span class="chip"><strong>العمر</strong>&nbsp;18</span>
-                        <span class="chip"><strong>النوع</strong>&nbsp;ذكر</span>
-                        <span class="chip"><strong>القدرة</strong>&nbsp;قوى الثلج</span>
-                        <span class="chip"><strong>الطبع</strong>&nbsp;مغرور وذكي جدًا</span>
+                        <span class="chip"><strong data-i18n="chip-age-label">العمر</strong>&nbsp;18</span>
+                        <span class="chip"><strong data-i18n="chip-gender-label">النوع</strong>&nbsp;<span data-i18n="chip-gender-val">ذكر</span></span>
+                        <span class="chip"><strong data-i18n="chip-ability-label">القدرة</strong>&nbsp;<span data-i18n="chip-ability-val">قوى الثلج</span></span>
+                        <span class="chip"><strong data-i18n="chip-trait-label">الطبع</strong>&nbsp;<span data-i18n="chip-trait-val">مغرور وذكي جدًا</span></span>
                     </div>
                     <div class="btnbar">
-                        <a class="btn btn-ice" href="index.html">الرئيسية</a>
-                        <a class="btn btn-ghost" href="#gallery">مشاهدة الصور</a>
-                        <a class="btn btn-red" href="selva.html">← Last Character</a>
-                        <a class="btn btn-next" href="Ego.html">Next Character →</a>
+                        <a class="btn btn-ice" href="index.html" data-i18n="btn-home">الرئيسية</a>
+                        <a class="btn btn-ghost" href="#gallery" data-i18n="btn-gallery">مشاهدة الصور</a>
+                        <a class="btn btn-red" href="selva.html" data-i18n="btn-last">← Last Character</a>
+                        <a class="btn btn-next" href="Ego.html" data-i18n="btn-next">Next Character →</a>
                     </div>
                 </div>
             </div>
@@ -581,7 +789,7 @@
 
             <!-- Gallery -->
             <div class="gallery-section" id="gallery">
-                <div class="section-title">المعرض</div>
+                <div class="section-title" data-i18n="section-gallery">المعرض</div>
                 <div class="gallery">
                     <figure class="tile large">
                         <img src="Ego%20poster.png" alt="بوستر Ego the Bird">
@@ -596,7 +804,7 @@
 
     <footer>
         <div class="footer-logo">LAVA AXIS</div>
-        <p>© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong></p>
+        <p data-i18n="footer-copy">© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong></p>
     </footer>
 
     <script>
@@ -618,6 +826,119 @@
             el.textContent = flakes[Math.floor(Math.random() * flakes.length)];
             container.appendChild(el);
         }
+
+        // Theme management
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        }
+
+        // Translation management
+        const translations = {
+            ar: {
+                "title": "Ego the Bird | ايجو ذا الطائر",
+                "brand-pill": "Lava Axis • شخصيات",
+                "role-badge": "البطل الثاني (Deuteragonist)",
+                "profile-bio": "ايجو عصفور أزرق يمتلك قدرة إطلاق قوى الثلج الهائلة. نحيف، طويل، وشديد الثقة بنفسه — يرى نفسه الأذكى في أي غرفة يدخلها، وغالبًا ما يكون محقًا.",
+                "chip-age-label": "العمر",
+                "chip-gender-label": "النوع",
+                "chip-gender-val": "ذكر",
+                "chip-ability-label": "القدرة",
+                "chip-ability-val": "قوى الثلج",
+                "chip-trait-label": "الطبع",
+                "chip-trait-val": "مغرور وذكي جدًا",
+                "btn-home": "الرئيسية",
+                "btn-gallery": "مشاهدة الصور",
+                "btn-last": "← الشخصية السابقة",
+                "btn-next": "الشخصية التالية →",
+                "section-gallery": "المعرض",
+                "footer-copy": "© 2025 جميع الحقوق محفوظة لـ <strong>Voxar</strong>",
+                "page-subtitle": "عصفور أزرق لديه قوى الثلج • مغرور وذكي جدًا"
+            },
+            en: {
+                "title": "Ego the Bird | Lava Axis",
+                "brand-pill": "Lava Axis • Characters",
+                "role-badge": "Deuteragonist",
+                "profile-bio": "Ego is a blue bird possessing the power of ice. Slim, tall, and highly self-confident — he believes he is the smartest bird in any room, and he is often right.",
+                "chip-age-label": "Age",
+                "chip-gender-label": "Gender",
+                "chip-gender-val": "Male",
+                "chip-ability-label": "Ability",
+                "chip-ability-val": "Ice Powers",
+                "chip-trait-label": "Trait",
+                "chip-trait-val": "Arrogant & Smart",
+                "btn-home": "Home",
+                "btn-gallery": "View Gallery",
+                "btn-last": "← Last Character",
+                "btn-next": "Next Character →",
+                "section-gallery": "Gallery",
+                "footer-copy": "© 2025 All rights reserved to <strong>Voxar</strong>",
+                "page-subtitle": "Blue bird with ice powers • Arrogant and smart"
+            },
+            fn: {
+                "title": "Ego the Bird | Lava Axis",
+                "brand-pill": "Lava Axis • Personnages",
+                "role-badge": "Deutéragoniste",
+                "profile-bio": "Ego est un oiseau bleu possédant le pouvoir de la glace. Mince, grand et très confiant — il se croit le plus intelligent dans chaque pièce, et il a souvent raison.",
+                "chip-age-label": "Âge",
+                "chip-gender-label": "Genre",
+                "chip-gender-val": "Mâle",
+                "chip-ability-label": "Pouvoir",
+                "chip-ability-val": "Glace",
+                "chip-trait-label": "Caractère",
+                "chip-trait-val": "Arrogant et intelligent",
+                "btn-home": "Accueil",
+                "btn-gallery": "Voir la galerie",
+                "btn-last": "← Personnage Précédent",
+                "btn-next": "Personnage Suivant →",
+                "section-gallery": "Galerie",
+                "footer-copy": "© 2025 Tous droits réservés à <strong>Voxar</strong>",
+                "page-subtitle": "Oiseau bleu avec pouvoirs de glace • Arrogant et intelligent"
+            }
+        };
+
+        function setLanguage(lang) {
+            if (lang === 'fr') lang = 'fn';
+            localStorage.setItem('lang', lang);
+
+            // Toggle active state
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById(`lang-${lang}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // Apply direction and html lang
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            document.documentElement.lang = (lang === 'fn') ? 'fr' : lang;
+            document.title = translations[lang]["title"];
+
+            // Apply translations to data-i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (translations[lang][key].includes('<strong') || translations[lang][key].includes('<span')) {
+                        elem.innerHTML = translations[lang][key];
+                    } else {
+                        elem.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        function changeLanguage(lang) {
+            setLanguage(lang);
+        }
+
+        // Initialize language on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('lang') || 'ar';
+            setLanguage(savedLang);
+        });
     </script>
 </body>
 
